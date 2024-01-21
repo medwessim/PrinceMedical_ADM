@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('userName')->unique();
             $table->string('password');
-            $table->string('photo');
-            $table->tinyInteger('isAdmin');
-            $table->foreign('group_id')->references('id')->on('Groups');
-            $table->foreign('position_id')->references('id')->on('JobPosition');
+            $table->string('photo')->nullable;
+            $table->boolean('isAdmin');
+            $table->foreignId('group_id');
+            $table->foreignId('jobposition_id');
+            $table->foreign('group_id')->references('id')->on('Groups')->cascadeOnDelete();
+            $table->foreign('jobposition_id')->references('id')->on('JobPositions')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

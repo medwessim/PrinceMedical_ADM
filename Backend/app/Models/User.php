@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function jobPosition(){
+        $this->belongsTo(JobPosition::class);
+    }
+
+    public function group(){
+        $this->belongsTo(Group::class);
+    }
+
+
 }

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable;
             $table->boolean('isAdmin');
-            $table->foreignId('group_id');
-            $table->foreignId('jobposition_id');
-            $table->foreign('group_id')->references('id')->on('Groups')->cascadeOnDelete();
-            $table->foreign('jobposition_id')->references('id')->on('JobPositions')->cascadeOnDelete();
+            //$table->foreignId('group_id');
+            //$table->foreignId('jobposition_id');
+            //$table->foreign('group_id')->references('id')->on('Groups')->cascadeOnDelete();
+            //$table->foreign('jobposition_id')->references('id')->on('JobPositions')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

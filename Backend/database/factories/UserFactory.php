@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\JobPosition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,10 +26,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'name' => $this->faker->name(),
+            'lastName' => $this->faker->name(),
+            'userName' => $this->faker->name(),
+            'num_tlf' => $this->faker->randomDigit(),
+            'isAdmin' => $this->faker->randomDigit(),
             'password' => static::$password ??= Hash::make('password'),
+            'photo' => $this->faker->imageUrl(640, 480, 'animals', true),
+            'group_id' => Group::get('id') -> random(),
+            'jobposition_id' => JobPosition::get('id') -> random(),
             'remember_token' => Str::random(10),
         ];
     }
@@ -35,10 +42,5 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
+    
 }

@@ -17,7 +17,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'zone_name' => $this->faker->name(),
         ];
     }
 }

@@ -18,18 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-route::get('/users',[UserController::class,'index']);
-route::get('/usersDetails/{id}',[UserController::class,'getUserDetails']);
-route::post('/addUser',[UserController::class,'store']);
-route::delete('/deleteUser',[UserController::class,'deleteUser']);
-route::post('/updateUser/{id}',[UserController::class,'updateUser']);
+// route::get('/users',[UserController::class,'index']);
+// route::get('/usersDetails/{id}',[UserController::class,'getUserDetails']);
+// route::post('/addUser',[UserController::class,'store']);
+// route::delete('/deleteUser',[UserController::class,'deleteUser']);
+// route::post('/updateUser/{id}',[UserController::class,'updateUser']);
 
-// route::apiResource('/UserPosts',UserController::class);
+route::apiResource('/UserPosts',UserController::class);
 
-// route::apiResource('/ProductPosts',ProductController::class);
+route::apiResource('/ProductPosts',ProductController::class);
 
-// route::apiResource('/GroupPosts',GroupController::class);
+route::apiResource('/GroupPosts',GroupController::class);
 
-// route::apiResource('/JobPosts',JobPositionController::class);
+route::apiResource('/JobPosts',JobPositionController::class);
 
 

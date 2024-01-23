@@ -141,8 +141,8 @@ const toggleNavigation = (val) => {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: toggleNavigation('Dashboard') },
-  { name: 'Employed', href: 'employed', current: toggleNavigation('Employed') },
+  { name: 'Dashboard', href: '/Dashbord', current: toggleNavigation('Dashboard') },
+  { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
   { name: 'Group', href: '#', current: toggleNavigation('Group') },
   { name: 'JobPosition', href: '#', current: toggleNavigation('JobPosition') },
   { name: 'Reports', href: '#', current: toggleNavigation('#') },
@@ -154,3 +154,6 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 </script>
+
+
+

@@ -96,7 +96,7 @@
       </DisclosurePanel>
     </Disclosure>
 
-    <header class="bg-gray-50 shadow ">
+    <!-- <header class="bg-gray-50 shadow ">
       <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
         <div class="flex items-center  gap-4">
@@ -107,19 +107,15 @@
             <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search"
               type="search" placeholder="Search website..." />
           </div>
-          <a class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-            href="/download">
-            ADD Employed
-          </a>
+          <router-link :to="add"
+            class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
+            ADD {{ msg }}
+          </router-link>
 
         </div>
       </div>
-    </header>
-    <main>
-      <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <!-- Your content -->
-      </div>
-    </main>
+    </header> -->
+
   </div>
 </template>
   
@@ -128,7 +124,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { defineProps } from 'vue'
 
-const props = defineProps(['msg'])
+const props = defineProps(['msg', 'add'])
 
 const user = {
   name: 'Tom Cook',

@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      <navbar msg="Dashboard"></navbar>
+      <navbar msg="Dashboard" add="addUser"></navbar>
     </div>
   </template>
   

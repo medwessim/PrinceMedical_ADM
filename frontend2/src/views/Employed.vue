@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      <navbar msg="Employed"></navbar>
+      <navbar msg="Employed" add="/add"></navbar>
       <Employed></Employed>
     </div>
   </template>

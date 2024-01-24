@@ -5,7 +5,7 @@
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+              <img class="h-8 w-8" src="../../assets/favicon.png"
                 alt="Your Company" />
             </div>
             <div class="hidden md:block">
@@ -139,9 +139,9 @@ const toggleNavigation = (val) => {
 const navigation = [
   { name: 'Dashboard', href: '/Dashbord', current: toggleNavigation('Dashboard') },
   { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
-  { name: 'Group', href: '#', current: toggleNavigation('Group') },
-  { name: 'JobPosition', href: '#', current: toggleNavigation('JobPosition') },
-  { name: 'Reports', href: '#', current: toggleNavigation('#') },
+  { name: 'Group', href: '/Group', current: toggleNavigation('Group') },
+  { name: 'Post', href: '/Post', current: toggleNavigation('Post') },
+  { name: 'Produit', href: 'Produit', current: toggleNavigation('#') },
 ]
 
 const userNavigation = [

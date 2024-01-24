@@ -1,6 +1,6 @@
 <template>
   <div>
-     <header class="bg-gray-50 shadow ">
+    <header class="bg-gray-50 shadow ">
       <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
         <div class="flex items-center  gap-4">
@@ -109,19 +109,19 @@ export default {
     //             })
     //         },
 
-    
-            AddUser(){
-                todosService.AddTodo(
-                    {
-                        titre:this.title,
-                        description:this.description
-                    }
-                ).then((res)=>{
-                    this.getTodos();
-                    this.title="";
-                    this.description="";
-                })
-            },
+
+    // AddUser(){
+    //     todosService.AddTodo(
+    //         {
+    //             titre:this.title,
+    //             description:this.description
+    //         }
+    //     ).then((res)=>{
+    //         this.getTodos();
+    //         this.title="";
+    //         this.description="";
+    //     })
+    // },
     //         UpdateTodo(){
     //             todosService.UpdateTodo(
     //                 this.idTodo,

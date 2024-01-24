@@ -1,7 +1,8 @@
 <template>
     <div class="home">
-      <navbar msg="Employed" add="/add"></navbar>
+      <navbar msg="Employed" ></navbar>
       <Employed></Employed>
+      <Footer></Footer>
     </div>
   </template>
   
@@ -10,12 +11,14 @@
   
   import navbar from '@/components/layout/navbar.vue'
   import Employed from '@/components/layout/Employed.vue'
+  import Footer from '@/components/layout/Footer.vue'
   
   export default {
     name: 'employed',
     components: {
       navbar,
-      Employed
+      Employed,
+      Footer
       
     }
   }

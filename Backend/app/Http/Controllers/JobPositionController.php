@@ -13,7 +13,8 @@ class JobPositionController extends Controller
      */
     public function index()
     {
-        //
+        $posts= JobPosition::all();
+        return response()->json(["data"=>$posts],200);
     }
 
     /**

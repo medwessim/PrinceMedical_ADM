@@ -16,13 +16,13 @@ const ApiClient = axios.create({
     deleteUser(id){
         return ApiClient.delete("/deleteUser/"+id);
     },
-    AddUser(todo){
+    AddUser(user){
         return ApiClient.post("/addUser",user);
     },
     getUserById(id){
       return ApiClient.get("/usersDetails/"+id);
     },
-    UpdateUser(id,uder){
+    UpdateUser(id,user){
       return ApiClient.put("/updateUser/"+id,user);
     }
 };

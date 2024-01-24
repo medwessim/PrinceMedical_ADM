@@ -26,10 +26,20 @@ route::put('/updateUser/{id}',[UserController::class,'update']);
 
 // route::apiResource('/UserPosts',UserController::class);
 
-route::apiResource('/ProductPosts',ProductController::class);
+route::get('/groups',[GroupController::class,'index']);
+route::get('/GroupsDetails/{id}',[GroupController::class,'show']);
+route::post('/addGroup',[GroupController::class,'store']);
+route::delete('/deleteGroup',[GroupController::class,'destroy']);
+route::put('/updateGroup/{id}',[GroupController::class,'update']);
 
-route::apiResource('/GroupPosts',GroupController::class);
+// route::apiResource('/GroupPosts',GroupController::class);
 
-route::apiResource('/JobPosts',JobPositionController::class);
+route::get('/posts',[JobPositionController::class,'index']);
+route::get('/PostsDetails/{id}',[JobPositionController::class,'show']);
+route::post('/addPost',[JobPositionController::class,'store']);
+route::delete('/deletePost',[JobPositionController::class,'destroy']);
+route::put('/updatePost/{id}',[JobPositionController::class,'update']);
+
+// route::apiResource('/JobPosts',JobPositionController::class);
 
 

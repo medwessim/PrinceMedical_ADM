@@ -34,8 +34,12 @@ class UserController extends Controller
             "lastName"=>$request->lastName,
             "userName"=>$request->userName,
             "password"=>$request->password,
-            "photo"=>$request->photo,
-            "num_tlf"=>$request->num_tlf
+            //"photo"=>$request->photo,
+            "photo"=>null,
+            "num_tlf"=>$request->num_tlf,
+            "isAdmin"=>$request->isAdmin,
+            "group_id"=>"1",
+            "jobposition_id"=>"1"
 
         ]);
         return response()->json(["message"=>"added successfully"],201);

@@ -23,11 +23,6 @@ const routes = [
     component: () => import('../views/SignIn.vue')
   },
   {
-    path: '/add',
-    name: 'add',
-    component: () => import('../views/add.vue')
-  },
-  {
     path: '/Group',
     name: 'Group',
     component: () => import('../views/Group.vue')

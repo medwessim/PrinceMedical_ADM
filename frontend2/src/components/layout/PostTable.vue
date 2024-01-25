@@ -4,7 +4,7 @@
             <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
                 <div class="flex items-center  gap-4">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Group </h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Post </h1>
                     <div class="justify-end">
                         <label class="sr-only" for="search"> Search </label>
 
@@ -13,7 +13,7 @@
                     </div>
                     <router-link to="/add"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
-                        ADD Group
+                        ADD Post
                     </router-link>
 
                 </div>

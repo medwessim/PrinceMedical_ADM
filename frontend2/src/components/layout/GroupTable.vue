@@ -94,7 +94,7 @@
                                     <label for="Username"
                                         class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                                         <input type="text" v-bind="zone_name"
-                                            class="w-1/2 peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                            class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                                             placeholder="Username" />
 
                                         <span
@@ -148,9 +148,9 @@
 
                                 <div>
                                     <label for="Username"
-                                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                        class="w-full relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                                         <input type="text" v-bind="zone_name"
-                                            class="w-1/2 peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                            class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                                             placeholder="Username" />
 
                                         <span
@@ -292,7 +292,7 @@ export default {
     display: flex;
     align-items: center;
     overflow: hidden;
-    box-shadow: 0 30px 50px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 10px 10px rgba(255, 0, 0, 0.5);
     /* Red shadow with 50% opacity */
 }
 </style>

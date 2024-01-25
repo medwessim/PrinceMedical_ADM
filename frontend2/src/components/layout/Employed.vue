@@ -151,24 +151,13 @@
                     </span>
                   </div>
                 </div>
+
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <label for="Name"
-                    class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text"
-                      class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                      placeholder="Name" />
-
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Name
-                    </span>
-
-                  </label>
-                  <label for="LastName"
+                  <label for="phoneNumber"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                     <input type="text" v-bind="num_tlf"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                      placeholder="LastName" />
+                      placeholder="phoneNumber" />
 
                     <span
                       class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
@@ -176,6 +165,45 @@
                     </span>
 
                   </label>
+
+                  <div>
+                    <select name="HeadlineAct" id="HeadlineAct"
+                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
+                      <option value="">select post</option>
+                      <option value="JM">John Mayer</option>
+                      <option value="SRV">Stevie Ray Vaughn</option>
+
+                    </select>
+                  </div>
+
+
+                </div>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div class="mt-2 flex items-center gap-x-3">
+                    <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        clip-rule="evenodd" />
+                    </svg>
+                    <label for="file-upload"
+                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                      <span>Upload a photo</span>
+                      <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                    </label>
+                    <!-- <button type="button"
+                      class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> -->
+                  </div>
+                  <div>
+
+                    <select name="HeadlineAct" id="HeadlineAct"
+                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
+                      <option value="">select Zone de travail</option>
+                      <option value="JM">John Mayer</option>
+                      <option value="SRV">Stevie Ray Vaughn</option>
+
+                    </select>
+                  </div>
+
                 </div>
 
                 <button type="submit"
@@ -217,39 +245,41 @@
 
               <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                 <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                  <img src="https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg"
-                    alt="Two each of gray, white, and black shirts arranged on table." class="object-cover object-center">
+                  <img :src="user.photo" alt="Two each of gray, white, and black shirts arranged on table."
+                    class="object-cover object-center">
                 </div>
                 <div class="sm:col-span-8 lg:col-span-7">
                   <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">Basic Tee 6-Pack</h2>
                   <div class="py-8  flow-root rounded-lg border border-gray-100 shadow-sm ">
                     <dl class="-my-3 divide-y divide-gray-100 text-sm">
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">Title</dt>
-                        <dd class="text-gray-700 sm:col-span-2">Mr</dd>
+                        <dt class="font-medium text-gray-900">id user</dt>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.id }}</dd>
+                      </div>
+                      <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                        <dt class="font-medium text-gray-900">Full Name</dt>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.name + user.lastName }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">Name</dt>
-                        <dd class="text-gray-700 sm:col-span-2 ">John Frusciante</dd>
+                        <dt class="font-medium text-gray-900">userName</dt>
+                        <dd class="text-gray-700 sm:col-span-2 ">{{ user.userName }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">Occupation</dt>
-                        <dd class="text-gray-700 sm:col-span-2">Guitarist</dd>
+                        <dt class="font-medium text-gray-900">num_tlf</dt>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.num_tlf }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">Salary</dt>
-                        <dd class="text-gray-700 sm:col-span-2">$1,000,000+</dd>
+                        <dt class="font-medium text-gray-900">group_id</dt>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.group_id }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">Bio</dt>
+                        <dt class="font-medium text-gray-900">jobposition_id</dt>
                         <dd class="text-gray-700 sm:col-span-2">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et facilis debitis explicabo
-                          doloremque impedit nesciunt dolorem facere, dolor quasi veritatis quia fugit aperiam
-                          aspernatur neque molestiae labore aliquam soluta architecto?
+                          {{ user.jobposition_id }}
                         </dd>
                       </div>
                     </dl>
@@ -284,7 +314,7 @@
 
               <form action="" @submit.prevent="AddUser"
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-                <p class="text-center text-lg font-medium">Ajouter votre compte</p>
+                <p class="text-center text-lg font-medium">modifier cette compte</p>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="Name"
@@ -345,23 +375,11 @@
                   </div>
                 </div>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <label for="Name"
-                    class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text"
-                      class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                      placeholder="Name" />
-
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Name
-                    </span>
-
-                  </label>
-                  <label for="LastName"
+                  <label for="phoneNumber"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                     <input type="text" v-bind="num_tlf"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                      placeholder="LastName" />
+                      placeholder="phoneNumber" />
 
                     <span
                       class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
@@ -369,15 +387,56 @@
                     </span>
 
                   </label>
+
+                  <div>
+                    <select name="HeadlineAct" id="HeadlineAct"
+                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
+                      <option value="">select post</option>
+                      <option value="JM">John Mayer</option>
+                      <option value="SRV">Stevie Ray Vaughn</option>
+
+                    </select>
+                  </div>
+
+
+                </div>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div class="mt-2 flex items-center gap-x-3">
+                    <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        clip-rule="evenodd" />
+
+                    </svg>
+                    <label for="file-upload"
+                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                      <span>Upload a photo</span>
+                      <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                    </label>
+                    <!-- <button type="button"
+                      class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
+                    <input id="file-upload" name="file-upload" type="file" class="sr-only"> -->
+                  </div>
+                  <div>
+
+                    <select name="HeadlineAct" id="HeadlineAct"
+                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
+                      <option value="">select Zone de travail</option>
+                      <option value="JM">John Mayer</option>
+                      <option value="SRV">Stevie Ray Vaughn</option>
+
+                    </select>
+                  </div>
+
                 </div>
 
                 <button type="submit"
                   class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
-                  ajouter
+                  modifier
                 </button>
 
                 <p class="text-center text-sm text-gray-500">
-                  No account?
+                  modifier compte?
                 </p>
               </form>
             </div>
@@ -413,11 +472,13 @@
                 </p>
 
                 <div class="mt-4 flex gap-2">
-                  <button type="button" class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600" @click="deleteUser()">
+                  <button type="button" class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600"
+                    @click="deleteUser()">
                     Yes, I'm sure
                   </button>
 
-                  <button type="button" class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600" @click="close()">
+                  <button type="button" class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600"
+                    @click="close()">
                     No, go back
                   </button>
                 </div>
@@ -444,6 +505,7 @@ export default {
   data() {
     return {
       users: [],
+      user: [],
       name: "",
       lastName: "",
       userName: "",
@@ -511,6 +573,11 @@ export default {
         this.users = res.data.data;
       })
     },
+    getUserById(id) {
+      UserService.getUserById(id).then((res) => {
+        this.user = res.data.data;
+      })
+    },
     deleteUser() {
       UserService.deleteUser(this.idUser).then((res) => {
         this.getUsers();
@@ -518,14 +585,16 @@ export default {
       })
     },
     detailUser(id) {
+      this.getUserById(id);
       this.detail = true;
+
     },
     updateUser(id) {
       this.edit = true;
     },
     deletePage(id) {
       this.deleteU = true;
-      this.idUser = id
+      this.idUser = id;
     },
     addUserPage() {
       this.add = true;
@@ -546,7 +615,7 @@ export default {
   display: flex;
   align-items: center;
   overflow: hidden;
-  box-shadow: 0 30px 50px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 10px 10px rgba(255, 0, 0, 0.5);
   /* Red shadow with 50% opacity */
 }
 </style>

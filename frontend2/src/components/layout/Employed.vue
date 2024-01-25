@@ -432,7 +432,7 @@
   
   
 <script>
-import Detail from '@/components/layout/Detail.vue'
+
 import UserService from "../../source/Users.js"
 
 export default {
@@ -456,7 +456,7 @@ export default {
     }
   },
   components: {
-    Detail
+    
   },
   methods: {
     //         refresh(){

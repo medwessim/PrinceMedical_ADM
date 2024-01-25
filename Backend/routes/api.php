@@ -29,7 +29,7 @@ route::put('/updateUser/{id}',[UserController::class,'update']);
 route::get('/groups',[GroupController::class,'index']);
 route::get('/GroupsDetails/{id}',[GroupController::class,'show']);
 route::post('/addGroup',[GroupController::class,'store']);
-route::delete('/deleteGroup',[GroupController::class,'destroy']);
+route::delete('/deleteGroup/{id}',[GroupController::class,'destroy']);
 route::put('/updateGroup/{id}',[GroupController::class,'update']);
 
 // route::apiResource('/GroupPosts',GroupController::class);

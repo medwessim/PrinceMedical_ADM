@@ -11,10 +11,10 @@
                         <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
                             id="search" type="search" placeholder="Search website..." />
                     </div>
-                    <router-link to="/add"
+                    <button @click="addGroupPage()"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
                         ADD Group
-                    </router-link>
+                    </button>
 
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700"><span
                                 class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
                                 <button class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                                    title="Edit Product">
+                                    title="Edit" @click="updateGroup(group.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -50,7 +50,7 @@
                                 </button>
 
                                 <button class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                                    title="Delete Product">
+                                    title="Delete" @click="deletePage(group.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,6 +64,163 @@
                 </tbody>
             </table>
         </div>
+        <!-- add group section  -->
+        <div class="relative z-10" role="dialog" v-if="add == true">
+
+            <div class="fixed  inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex  min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+
+                    <div class="flex  transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                        <div
+                            class="relative flex items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                            <button type="button"
+                                class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                                @click="close()">
+                                <span class="sr-only">Close</span>
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            <form action="" @submit.prevent="updateUser"
+                                class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+                                <p class="text-center text-lg font-medium">Ajouter une zone</p>
+
+
+                                <div>
+                                    <label for="Username"
+                                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                        <input type="text" v-bind="zone_name"
+                                            class="w-1/2 peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                            placeholder="Username" />
+
+                                        <span
+                                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                            Zone Name
+                                        </span>
+                                    </label>
+                                </div>
+
+
+
+                                <button type="submit"
+                                    class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
+                                    ajouter
+                                </button>
+
+                                <p class="text-center text-sm text-gray-500">
+                                    No ?
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- edit group section  -->
+        <div class="relative z-10" role="dialog" v-if="edit == true">
+
+            <div class="fixed  inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex  min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+
+                    <div class="flex  transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                        <div
+                            class="relative flex items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                            <button type="button"
+                                class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                                @click="close()">
+                                <span class="sr-only">Close</span>
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            <form action="" @submit.prevent="updateUser"
+                                class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+                                <p class="text-center text-lg font-medium">modifier cette zone</p>
+
+
+                                <div>
+                                    <label for="Username"
+                                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                        <input type="text" v-bind="zone_name"
+                                            class="w-1/2 peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                            placeholder="Username" />
+
+                                        <span
+                                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                            Zone Name
+                                        </span>
+                                    </label>
+                                </div>
+
+
+
+                                <button type="submit"
+                                    class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
+                                    modifier
+                                </button>
+
+                                <p class="text-center text-sm text-gray-500">
+                                    No ?
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delete section  -->
+        <div class="relative z-10" role="dialog" v-if="deleteG == true">
+
+            <div class="fixed inset-0 hidden  bg-opacity-75 transition-opacity md:block"></div>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+
+                    <div
+                        class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-xl">
+                        <div class="relative flex items-center overflow-hidden  red-shadow">
+                            <button type="button"
+                                class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                                @click="close()">
+                                <span class="sr-only">Close</span>
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            <div class="rounded-lg bg-white p-8 shadow-2xl">
+                                <h2 class="text-lg font-bold">Are you sure you want to do that?</h2>
+
+                                <p class="mt-2 text-sm text-gray-500">
+                                    Doing that could have cause some issues elsewhere, are you 100% sure it's OK?
+                                </p>
+
+                                <div class="mt-4 flex gap-2">
+                                    <button type="button" @click="deleteGroup()"
+                                        class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600">
+                                        Yes, I'm sure
+                                    </button>
+
+                                    <button type="button" @click="close()"
+                                        class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600">
+                                        No, go back
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -71,30 +228,71 @@
 import groupService from "@/source/Group.js"
 
 export default {
-  created() {
-    this.getGroups();
-  },
+    created() {
+        this.getGroups();
+    },
 
-  data() {
-    return {
-    groups: [],
-    zone_name: ""
+    data() {
+        return {
+            groups: [],
+            zone_name: "",
+            edit: false,
+            add: false,
+            deleteG: false,
+            idGroup: null
 
-}
-},
-components: {
+        }
 
-},
+    },
+    components: {
 
-methods: {
-    getGroups() {
-        groupService.getGroups().then((res) => {
-        this.groups = res.data.data;
-      })
+    },
+
+    methods: {
+        getGroups() {
+            groupService.getGroups().then((res) => {
+                this.groups = res.data.data;
+            })
+        },
+        close() {
+            this.edit = false;
+            this.deleteG = false;
+            this.add = false;
+        },
+
+        updateGroup(id) {
+            this.edit = true;
+        },
+        deletePage(id) {
+            this.deleteG = true;
+            this.idGroup = id;
+            
+        },
+        addGroupPage() {
+            this.add = true;
+        },
+        deleteGroup(){
+            groupService.deleteGroup(this.idGroup).then((res)=>{
+                 this.getGroups();
+            })
+            this.deleteG = false;
+        }
+        
     },
 }
 
 
-}
+
 
 </script>
+
+<style>
+.red-shadow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 30px 50px rgba(255, 0, 0, 0.5);
+    /* Red shadow with 50% opacity */
+}
+</style>

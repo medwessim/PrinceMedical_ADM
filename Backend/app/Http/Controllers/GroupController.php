@@ -13,8 +13,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups= Group::all();
-        return response()->json(["data"=>$groups],200);
+        $groups = Group::all();
+        return response()->json(["data" => $groups], 200);
     }
 
     /**
@@ -30,7 +30,13 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request)
     {
-        //
+        $group = new Group();
+        $group->zone_name = $request->zone_name;
+        $group->save();
+        // Group::create([
+        //     "zone_name" => $request->zone_name,
+        // ]);
+        return response()->json(["message" => "done"], 201);
     }
 
     /**
@@ -60,8 +66,17 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Group $group)
+    public function destroy($id)
     {
-        //
+        $groups= Group::find($id);
+        $message ="";
+        if($groups==null){
+            $message="group with $id not found";
+            return response()->json(["message"=>$message],404);
+        }
+        else{
+            $groups->delete();
+            return response()->json(["message"=>"group deleted"],200);
+        }
     }
 }

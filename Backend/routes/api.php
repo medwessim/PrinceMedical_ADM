@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 route::get('/users',[UserController::class,'index']);
 route::get('/usersDetails/{id}',[UserController::class,'show']);
 route::post('/addUser',[UserController::class,'store']);
-route::delete('/deleteUser',[UserController::class,'destroy']);
+route::delete('/deleteUser/{id}',[UserController::class,'destroy']);
 route::put('/updateUser/{id}',[UserController::class,'update']);
 
 // route::apiResource('/UserPosts',UserController::class);

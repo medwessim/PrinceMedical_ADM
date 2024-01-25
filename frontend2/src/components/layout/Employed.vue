@@ -14,7 +14,7 @@
           <button @click="addUserPage()"
             class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
             ADD Employed
-        </button>
+          </button>
 
         </div>
       </div>
@@ -413,11 +413,11 @@
                 </p>
 
                 <div class="mt-4 flex gap-2">
-                  <button type="button" class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600">
+                  <button type="button" class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600" @click="deleteUser()">
                     Yes, I'm sure
                   </button>
 
-                  <button type="button" class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600">
+                  <button type="button" class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600" @click="close()">
                     No, go back
                   </button>
                 </div>
@@ -456,7 +456,7 @@ export default {
     }
   },
   components: {
-    
+
   },
   methods: {
     //         refresh(){
@@ -511,11 +511,12 @@ export default {
         this.users = res.data.data;
       })
     },
-    //         deletetodo(id){
-    //             todosService.deleteTodo(id).then((res)=>{
-    //                  this.getTodos();
-    //             })
-    //         }
+    deleteUser() {
+      UserService.deleteUser(this.idUser).then((res) => {
+        this.getUsers();
+        this.deleteU = false;
+      })
+    },
     detailUser(id) {
       this.detail = true;
     },
@@ -524,8 +525,9 @@ export default {
     },
     deletePage(id) {
       this.deleteU = true;
+      this.idUser = id
     },
-    addUserPage(id) {
+    addUserPage() {
       this.add = true;
     },
     close() {

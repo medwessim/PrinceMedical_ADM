@@ -17,7 +17,23 @@ const ApiClient = axios.create({
         return ApiClient.delete("/deleteUser/"+id);
     },
     AddUser(user){
-        return ApiClient.post("/addUser",user);
+      let data= new FormData();
+      data.append("name", user.name);
+      data.append("lastName", user.lastName);
+      data.append("userName", user.userName);
+      data.append("password", user.password);
+      data.append("num_tlf", user.num_tlf);
+      data.append("group_id", user.group_id);
+      data.append("jobposition_id", user.jobposition_id);
+      data.append("photo", user.photo);
+      const config = {
+        Headers:{
+          "content-type" : "multipart/form-data",
+        },
+      };
+      console.log(user);
+      console.log(data);
+      return ApiClient.post("/addUser", data, config);
     },
     getUserById(id){
       return ApiClient.get("/usersDetails/"+id);

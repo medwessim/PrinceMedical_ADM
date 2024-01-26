@@ -22,7 +22,7 @@
     <ul role="list" class="mx-auto max-w-7xl divide-y divide-gray-100">
       <li v-for="user in users" :key="user.id" class="flex justify-between gap-x-6 py-5">
         <div class="flex min-w-0 gap-x-4">
-          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="user.photo" alt="" />
+          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000'+user.photo" alt="" />
           <div class="min-w-0 flex-auto">
             <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name }}</p>
             <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.userName }}</p>
@@ -89,14 +89,14 @@
                 </svg>
               </button>
 
-              <form action="" @submit.prevent="updateUser"
+              <form action="" @submit.prevent="AddUser()" enctype="multipart/form-data"
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">Ajouter votre compte</p>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="Name"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="name"
+                    <input type="text" v-model="name"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="Name" />
 
@@ -108,7 +108,7 @@
                   </label>
                   <label for="LastName"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="lastName"
+                    <input type="text" v-model="lastName"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="LastName" />
 
@@ -123,7 +123,7 @@
                 <div>
                   <label for="Username"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="userName"
+                    <input type="text" v-model="userName"
                       class=" w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="Username" />
 
@@ -136,7 +136,7 @@
                 <div>
                   <label for="password" class="sr-only">Password</label>
                   <div class="relative">
-                    <input type="password" v-bind="password"
+                    <input type="password" v-model="password"
                       class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                       placeholder="Enter password" />
 
@@ -155,7 +155,7 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="phoneNumber"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="num_tlf"
+                    <input type="text" v-model="num_tlf"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="phoneNumber" />
 
@@ -167,11 +167,11 @@
                   </label>
 
                   <div>
-                    <select name="HeadlineAct" id="HeadlineAct"
+                    <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select post</option>
-                      <option value="JM">John Mayer</option>
-                      <option value="SRV">Stevie Ray Vaughn</option>
+                      <option value="1">John Mayer</option>
+                      <option value="2">Stevie Ray Vaughn</option>
 
                     </select>
                   </div>
@@ -188,18 +188,18 @@
                     <label for="file-upload"
                       class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                       <span>Upload a photo</span>
-                      <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                      <input id="file-upload" name="file-upload" type="file" class="form-control" ref="photo" @change="saveImage()">
                     </label>
                     <!-- <button type="button"
                       class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> -->
                   </div>
                   <div>
 
-                    <select name="HeadlineAct" id="HeadlineAct"
+                    <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select Zone de travail</option>
-                      <option value="JM">John Mayer</option>
-                      <option value="SRV">Stevie Ray Vaughn</option>
+                      <option value="1">John Mayer</option>
+                      <option value="2">Stevie Ray Vaughn</option>
 
                     </select>
                   </div>
@@ -245,7 +245,7 @@
 
               <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                 <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                  <img :src="user.photo" alt="Two each of gray, white, and black shirts arranged on table."
+                  <img :src="'http://localhost:8000'+user.photo" alt="employer photo"
                     class="object-cover object-center">
                 </div>
                 <div class="sm:col-span-8 lg:col-span-7">
@@ -312,7 +312,7 @@
                 </svg>
               </button>
 
-              <form action="" @submit.prevent="AddUser"
+              <form action="" @submit.prevent=""
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">modifier cette compte</p>
 
@@ -510,52 +510,54 @@ export default {
       lastName: "",
       userName: "",
       photo: "",
+      jobposition_id: "",
+      num_tlf: "",
+      password: "",
+      group_id: "",
       detail: false,
       add: false,
       edit: false,
       deleteU: false,
-      idUser: null
+      idUser: null,
+      
     }
   },
   components: {
 
   },
   methods: {
-    //         refresh(){
-    //             this.title="";
-    //             this.description="";
-    //             this.idTodo=null;
-    //             this.edit=false;
-    //         },
-    //         ShowUpdate(id){
-    //             this.idTodo=id;
-    //             this.edit=true;
-    //             todosService.getTodoById(id).then((res)=>{
-    //                 this.title=res.data.data.title;
-    //                 this.description=res.data.data.description;
-    //             })
-    //         },
 
 
-    // AddUser() {
-    //   UserService.AddUser(
-    //     {
-    //       name: this.name,
-    //       lastName: this.lastName,
-    //       userName: this.userName,
-    //       password: this.password,
-    //       num_tlf: this.num_tlf,
-    //       isAdmin:1,
-    //     }
-    //   ).then((res) => {
-    //     this.getUsers();
-    //     this.lastName = "";
-    //     this.userName = "";
-    //     this.password = "";
-    //     this.num_tlf = "";
+    AddUser() {
+      UserService.AddUser(
+        {
+          "name": this.name,
+          "lastName": this.lastName,
+          "userName": this.userName,
+          "password": this.password,
+          "num_tlf": this.num_tlf,
+          "group_id":this.group_id,
+          "JobPosition":this.jobposition_id,
+          "photo":this.photo
+        }
+      ).then((res) => {
+        this.name = "";
+        this.lastName = "";
+        this.userName = "";
+        this.password = "";
+        this.num_tlf = "";
+        this.photo = "";
+        this.group_id = "";
+        this.jobposition_id = "";
+        
 
-    //   })
-    // },
+      }).catch((error)=>{
+                  console.log("error");
+                  this.load=false;
+               })
+      
+      
+    },
     //         UpdateTodo(){
     //             todosService.UpdateTodo(
     //                 this.idTodo,
@@ -604,6 +606,9 @@ export default {
       this.edit = false;
       this.deleteU = false;
       this.add = false;
+    },
+    saveImage(){
+      this.photo=this.$refs.photo.files[0];
     }
   }
 

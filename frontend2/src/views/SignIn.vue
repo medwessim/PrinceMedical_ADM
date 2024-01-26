@@ -84,12 +84,13 @@
           </div>
         </div>
   
-        <v-btn
+        <button
           type="submit"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+          :loading="load"
         >
           Sign in
-        </v-btn>
+        </button>
   
         <p class="text-center text-sm text-gray-500">
           No account?
@@ -118,22 +119,24 @@ export default {
     return{
       password:'',
       userName:'',
+      load: false
     }
   },
   methods: {
-    signIn() {
-      this.userName.$touch();
-      this.password.$touch();
+    SignIn() {
+      // this.userName.$touch();
+      // this.password.$touch();
       // if(this.validate('email') && this.validate('password')){
       this.load = true;
-      authService.LoginUser(this.email, this.password).then(() => {
+      authService.signInUser(this.email, this.password).then(() => {
         this.load = false;
-        const auth = AuthStore();
-        if (auth.getisadmin == 1) {
-          this.$router.push('dashboard');
-        } else {
-          this.$router.push('/');
-        }
+        // const auth = AuthStore();
+        this.$router.push('/');
+        // if (auth.getisadmin == 1) {
+        //   this.$router.push('dashboard');
+        // } else {
+        //   this.$router.push('/');
+        // }
       }).catch((error) => {
         this.snackbar_error = true;
         this.message_error = error.response.data.data;

@@ -11,7 +11,8 @@ const ApiClient = axios.create({
 
 export default{
 
-    async LoginUser(userName,password){
+    async signInUser(userName,password){
+        console.log("done");
         const store=AuthStore();
         const res= await ApiClient.post('/auth',{userName,password});
         if(res.status===200){

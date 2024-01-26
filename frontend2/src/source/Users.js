@@ -3,10 +3,7 @@ import axios from "axios";
 const ApiClient = axios.create({
     baseURL: "http://localhost:8000/api",
     withCredentials: false,
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-    },
+    
   });
 
   export default {
@@ -28,7 +25,7 @@ const ApiClient = axios.create({
       data.append("photo", user.photo);
       const config = {
         Headers:{
-          "content-type" : "multipart/form-data",
+          "content-Type" : "multipart/form-data",
         },
       };
       console.log(user);
@@ -41,4 +38,5 @@ const ApiClient = axios.create({
     UpdateUser(id,user){
       return ApiClient.put("/updateUser/"+id,user);
     }
+    
 };

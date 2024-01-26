@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginUser extends Controller
+class SignInUser extends Controller
 {
-    public function LoginUser(Request $request)
+    public function SignInUser(Request $request)
 {
     if (Auth::attempt(['userName' => $request->userName, 'password' => $request->password])) {
         $user = Auth::user();
@@ -16,7 +16,7 @@ class LoginUser extends Controller
         $response = [
             'token' => $token,
             'user' => $user,
-            'isAdmin' => $user->Isadmin
+            'isAdmin' => $user->isAdmin
         ];
         
         return response()->json(['data' => $response], 200);

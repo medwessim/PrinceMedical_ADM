@@ -15,17 +15,18 @@
         inventore quaerat mollitia?
       </p>
   
-      <form action="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+      <form @submit.prevent="SignIn()" action="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Sign in to your account</p>
   
         <div>
-          <label for="email" class="sr-only">Email</label>
+          <label for="email" class="sr-only">User_Name</label>
   
           <div class="relative">
             <input
-              type="email"
+              type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter email"
+              v-model="userName"
             />
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -55,6 +56,7 @@
               type="password"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter password"
+              v-model="password"
             />
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -82,12 +84,12 @@
           </div>
         </div>
   
-        <button
+        <v-btn
           type="submit"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
         >
           Sign in
-        </button>
+        </v-btn>
   
         <p class="text-center text-sm text-gray-500">
           No account?
@@ -102,6 +104,8 @@
 <script>
 // @ is an alias to /src
 
+import authService from"@/source/Auth.js"
+
 export default {
   name: 'SignIn',
   components: {
@@ -109,6 +113,39 @@ export default {
     
     
     
+  },
+  data(){
+    return{
+      password:'',
+      userName:'',
+    }
+  },
+  methods: {
+    signIn() {
+      this.userName.$touch();
+      this.password.$touch();
+      // if(this.validate('email') && this.validate('password')){
+      this.load = true;
+      authService.LoginUser(this.email, this.password).then(() => {
+        this.load = false;
+        const auth = AuthStore();
+        if (auth.getisadmin == 1) {
+          this.$router.push('dashboard');
+        } else {
+          this.$router.push('/');
+        }
+      }).catch((error) => {
+        this.snackbar_error = true;
+        this.message_error = error.response.data.data;
+        this.check = error.response.data.status;
+        console.log(this.check);
+        if (this.check == 'email') {
+          this.renvoyer = true;
+        }
+        this.load = false;
+      })
+      // }
+    },
   }
 }
 </script>

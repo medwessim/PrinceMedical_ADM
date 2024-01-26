@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JobPositionController;
+use App\Http\Controllers\LoginUser;
+use App\Http\Controllers\LoginUser;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -41,5 +43,7 @@ route::delete('/deletePost',[JobPositionController::class,'destroy']);
 route::put('/updatePost/{id}',[JobPositionController::class,'update']);
 
 // route::apiResource('/JobPosts',JobPositionController::class);
+
+route::get('/auth',[LoginUser::class,'LoginUser']);
 
 

@@ -29,21 +29,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::created([
+      $file_name = time() . '_' .$request->photo->getClientOriginalName();
+      $image=$request->file('photo')->storeAs('images',$file_name,'public');
+       User::create([
+
             "name"=>$request->name,
             "lastName"=>$request->lastName,
             "userName"=>$request->userName,
             "password"=>$request->password,
-            //"photo"=>$request->photo,
-            "photo"=>null,
+            // "photo"=>"abc",
+            "photo"=>'/storage/'.$image,
             "num_tlf"=>$request->num_tlf,
-            "isAdmin"=>$request->isAdmin,
-            "group_id"=>"1",
-            "jobposition_id"=>"1"
+            "isAdmin"=>0,
+            "group_id"=>$request->group_id,
+            "jobposition_id"=>$request->jobposition_id
 
         ]);
         return response()->json(["message"=>"added successfully"],201);
     }
+   
 
     /**
      * Display the specified resource.

@@ -22,7 +22,7 @@
     <ul role="list" class="mx-auto max-w-7xl divide-y divide-gray-100">
       <li v-for="user in users" :key="user.id" class="flex justify-between gap-x-6 py-5">
         <div class="flex min-w-0 gap-x-4">
-          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000'+user.photo" alt="" />
+          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + user.photo" alt="" />
           <div class="min-w-0 flex-auto">
             <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name }}</p>
             <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.userName }}</p>
@@ -89,7 +89,7 @@
                 </svg>
               </button>
 
-              <form action="" @submit.prevent="AddUser()" enctype="multipart/form-data"
+              <form @submit.prevent="AddUser()" enctype="multipart/form-data"
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">Ajouter votre compte</p>
 
@@ -169,9 +169,8 @@
                   <div>
                     <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
-                      <option value="">select post</option>
-                      <option value="1">John Mayer</option>
-                      <option value="2">Stevie Ray Vaughn</option>
+                      <option value="">select jobposition</option>
+                      <option v-for="post in posts" :key="post.id" value="{{ post.id }}">{{ post.job_name }}</option>
 
                     </select>
                   </div>
@@ -188,19 +187,19 @@
                     <label for="file-upload"
                       class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                       <span>Upload a photo</span>
-                      <input id="file-upload" name="file-upload" type="file" class="form-control" ref="photo" @change="saveImage()">
+                      <input id="file-upload" name="file-upload" type="file" class="sr-only" ref="photo"
+                        @change="saveImage">
                     </label>
                     <!-- <button type="button"
                       class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> -->
                   </div>
                   <div>
 
-                    <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
+                    <select  name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
-                      <option value="">select Zone de travail</option>
-                      <option value="1">John Mayer</option>
-                      <option value="2">Stevie Ray Vaughn</option>
-
+                      <option value="">select zone</option>
+                      <option v-for="group in groups" :key="group.id" value="{{ group.id }}">{{ group.zone_name }}</option>
+                    
                     </select>
                   </div>
 
@@ -245,8 +244,7 @@
 
               <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                 <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                  <img :src="'http://localhost:8000'+user.photo" alt="employer photo"
-                    class="object-cover object-center">
+                  <img :src="'http://localhost:8000' + user.photo" alt="employer photo" class="object-cover object-center">
                 </div>
                 <div class="sm:col-span-8 lg:col-span-7">
                   <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">Basic Tee 6-Pack</h2>
@@ -312,8 +310,7 @@
                 </svg>
               </button>
 
-              <form action="" @submit.prevent=""
-                class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+              <form action="" @submit.prevent="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">modifier cette compte</p>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -495,17 +492,24 @@
 <script>
 
 import UserService from "../../source/Users.js"
+import groupService from "@/source/Group.js"
+import postService from "@/source/Post.js"
 
 export default {
   created() {
     this.getUsers();
-
-
+    this.getGroups();
+    this.getPosts();
+    
   },
   data() {
     return {
+      groups: [],
       users: [],
       user: [],
+      posts: [],
+      job_name: "",
+      zone_name: "",
       name: "",
       lastName: "",
       userName: "",
@@ -519,7 +523,7 @@ export default {
       edit: false,
       deleteU: false,
       idUser: null,
-      
+
     }
   },
   components: {
@@ -536,9 +540,9 @@ export default {
           "userName": this.userName,
           "password": this.password,
           "num_tlf": this.num_tlf,
-          "group_id":this.group_id,
-          "JobPosition":this.jobposition_id,
-          "photo":this.photo
+          "group_id": this.group_id,
+          "jobposition_id": this.jobposition_id,
+          "photo": this.photo
         }
       ).then((res) => {
         this.name = "";
@@ -549,27 +553,26 @@ export default {
         this.photo = "";
         this.group_id = "";
         this.jobposition_id = "";
-        
 
-      }).catch((error)=>{
-                  console.log("error");
-                  this.load=false;
-               })
-      
-      
+
+      }).catch((error) => {
+        console.log("error");
+        this.load = false;
+      })
+
+
     },
-    //         UpdateTodo(){
-    //             todosService.UpdateTodo(
-    //                 this.idTodo,
-    //                 {
-    //                     titre:this.title,
-    //                     description:this.description
-    //                 }
-    //             ).then((res)=>{
-    //                      this.getTodos();
-    //                      this.refresh();
-    //             })
-    //         },
+    getPosts() {
+        postService.getPosts().then((res) => {
+        this.posts = res.data.data;
+      })
+    },
+    getGroups() {
+      groupService.getGroups().then((res) => {
+        this.groups = res.data.data;
+      })
+    },
+
     getUsers() {
       UserService.getUsers().then((res) => {
         this.users = res.data.data;
@@ -607,8 +610,8 @@ export default {
       this.deleteU = false;
       this.add = false;
     },
-    saveImage(){
-      this.photo=this.$refs.photo.files[0];
+    saveImage() {
+      this.photo = this.$refs.photo.files[0];
     }
   }
 

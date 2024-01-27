@@ -36,9 +36,10 @@ class JobPositionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JobPosition $jobPosition)
+    public function show(string $id)
     {
-        //
+        $posts=JobPosition::find($id);
+        return response()->json(["data"=>$posts],200);
     }
 
     /**

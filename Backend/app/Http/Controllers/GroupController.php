@@ -42,9 +42,10 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Group $group)
+    public function show(string $id)
     {
-        //
+        $groups=Group::find($id);
+        return response()->json(["data"=>$groups],200);
     }
 
     /**

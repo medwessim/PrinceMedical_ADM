@@ -24,5 +24,8 @@ const ApiClient = axios.create({
     },
     UpdateGroup(id,group){
       return ApiClient.put("/updateGroup/"+id,group);
+    },
+    getGroupsById(id){
+      return ApiClient.get("/GroupsDetails/"+id);
     }
 };

@@ -24,5 +24,8 @@ const ApiClient = axios.create({
     },
     UpdatePost(id,JobPosition){
       return ApiClient.put("/updatePost/"+id,JobPosition);
+    },
+    getPostsById(id){
+      return ApiClient.get("/PostsDetails/"+id);
     }
 };

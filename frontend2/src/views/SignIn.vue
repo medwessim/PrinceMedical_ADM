@@ -25,7 +25,7 @@
             <input
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter email"
+              placeholder="Enter user_name"
               v-model="userName"
             />
   

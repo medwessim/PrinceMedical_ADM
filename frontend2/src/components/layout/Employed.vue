@@ -31,7 +31,7 @@
         <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
           <button
             class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
-            @click="updateUser(user.id)">
+            @click="updateUserPage(user.id)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="h-4 w-4">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -43,7 +43,7 @@
 
           <button
             class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
-            @click="detailUser(user.id)">
+            @click="detailUser(user)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="h-4 w-4">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -170,7 +170,7 @@
                     <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select jobposition</option>
-                      <option v-for="post in posts" :key="post.id" value="{{ post.id }}">{{ post.job_name }}</option>
+                      <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.job_name }}</option>
 
                     </select>
                   </div>
@@ -195,11 +195,11 @@
                   </div>
                   <div>
 
-                    <select  name="HeadlineAct" id="HeadlineAct" v-model="group_id"
+                    <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select zone</option>
-                      <option v-for="group in groups" :key="group.id" value="{{ group.id }}">{{ group.zone_name }}</option>
-                    
+                      <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.zone_name }}</option>
+
                     </select>
                   </div>
 
@@ -244,10 +244,11 @@
 
               <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                 <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                  <img :src="'http://localhost:8000' + user.photo" alt="employer photo" class="object-cover object-center">
+                  <img :src="'http://localhost:8000' + user.photo" alt="employer photo"
+                    class="object-cover object-center">
                 </div>
                 <div class="sm:col-span-8 lg:col-span-7">
-                  <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">Basic Tee 6-Pack</h2>
+                  <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">{{ user.name +" "+ user.lastName }}</h2>
                   <div class="py-8  flow-root rounded-lg border border-gray-100 shadow-sm ">
                     <dl class="-my-3 divide-y divide-gray-100 text-sm">
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -256,7 +257,7 @@
                       </div>
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                         <dt class="font-medium text-gray-900">Full Name</dt>
-                        <dd class="text-gray-700 sm:col-span-2">{{ user.name + user.lastName }}</dd>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.name +" "+ user.lastName }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -270,14 +271,14 @@
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">group_id</dt>
-                        <dd class="text-gray-700 sm:col-span-2">{{ user.group_id }}</dd>
+                        <dt class="font-medium text-gray-900">group</dt>
+                        <dd class="text-gray-700 sm:col-span-2">{{ groups.zone_name }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">jobposition_id</dt>
+                        <dt class="font-medium text-gray-900">jobposition</dt>
                         <dd class="text-gray-700 sm:col-span-2">
-                          {{ user.jobposition_id }}
+                          {{ posts.job_name }}
                         </dd>
                       </div>
                     </dl>
@@ -316,26 +317,20 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="Name"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="name"
-                      class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                      placeholder="Name" />
 
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Name
-                    </span>
+                    <input type="text" :value="user.name" :v-model="user.name"
+                      class="w-full peer border-none bg-transparent  focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12" />
+
+
 
                   </label>
                   <label for="LastName"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="lastName"
+                    <input type="text" :value="user.lastName" :v-model="user.lastName"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="LastName" />
 
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      LastName
-                    </span>
+                    
 
                   </label>
 
@@ -343,22 +338,19 @@
                 <div>
                   <label for="Username"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="userName"
+                    <input type="text" :value="user.userName" :v-model="user.userName"
                       class=" w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="Username" />
 
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Username
-                    </span>
+                    
                   </label>
                 </div>
                 <div>
                   <label for="password" class="sr-only">Password</label>
                   <div class="relative">
-                    <input type="password" v-bind="password"
+                    <input type="password" :value="user.password" :v-model="user.password"
                       class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                      placeholder="Enter password" />
+                       />
 
                     <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -374,23 +366,20 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="phoneNumber"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" v-bind="num_tlf"
+                    <input type="text" :value="user.num_tlf" :v-model="user.num_tlf"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="phoneNumber" />
 
-                    <span
-                      class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      numero telphone
-                    </span>
+                    
 
                   </label>
 
                   <div>
-                    <select name="HeadlineAct" id="HeadlineAct"
+                    <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select post</option>
-                      <option value="JM">John Mayer</option>
-                      <option value="SRV">Stevie Ray Vaughn</option>
+                      <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.job_name }}</option>
+                      
 
                     </select>
                   </div>
@@ -416,11 +405,10 @@
                   </div>
                   <div>
 
-                    <select name="HeadlineAct" id="HeadlineAct"
+                    <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
-                      <option value="">select Zone de travail</option>
-                      <option value="JM">John Mayer</option>
-                      <option value="SRV">Stevie Ray Vaughn</option>
+                      <option value="">select zone</option>
+                      <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.zone_name }}</option>
 
                     </select>
                   </div>
@@ -491,6 +479,7 @@
   
 <script>
 
+import router from "@/router";
 import UserService from "../../source/Users.js"
 import groupService from "@/source/Group.js"
 import postService from "@/source/Post.js"
@@ -500,7 +489,7 @@ export default {
     this.getUsers();
     this.getGroups();
     this.getPosts();
-    
+
   },
   data() {
     return {
@@ -559,20 +548,33 @@ export default {
         console.log("error");
         this.load = false;
       })
-
-
+      router.go();
+      
     },
+
+
+
     getPosts() {
-        postService.getPosts().then((res) => {
+      postService.getPosts().then((res) => {
         this.posts = res.data.data;
       })
+    },
+    getPostsById(id) {
+      postService.getPostsById(id).then((res) => {
+        this.posts = res.data.data;
+      })
+      
     },
     getGroups() {
       groupService.getGroups().then((res) => {
         this.groups = res.data.data;
       })
     },
-
+    getGroupsById(id) {
+      groupService.getGroupsById(id).then((res) => {
+        this.groups = res.data.data;
+      })
+    },
     getUsers() {
       UserService.getUsers().then((res) => {
         this.users = res.data.data;
@@ -589,13 +591,17 @@ export default {
         this.deleteU = false;
       })
     },
-    detailUser(id) {
-      this.getUserById(id);
+    detailUser(tab) {
+      this.getUserById(tab.id);
+      this.getPostsById(tab.jobposition_id);
+      this.getGroupsById(tab.group_id);
+      
       this.detail = true;
 
     },
-    updateUser(id) {
+    updateUserPage(id) {
       this.edit = true;
+      this.getUserById(id);
     },
     deletePage(id) {
       this.deleteU = true;

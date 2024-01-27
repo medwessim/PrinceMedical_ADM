@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -12,8 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users= User::all();
-        return response()->json(["data"=>$users],200);
+        $users = User::all();
+        return response()->json(["data" => $users], 200);
     }
 
     /**
@@ -29,35 +30,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-      $file_name = time() . '_' .$request->photo->getClientOriginalName();
-      $image=$request->file('photo')->storeAs('images',$file_name,'public');
-       User::create([
+        $file_name = time() . '_' . $request->photo->getClientOriginalName();
+        $image = $request->file('photo')->storeAs('images', $file_name, 'public');
+        User::create([
 
-            "name"=>$request->name,
-            "lastName"=>$request->lastName,
-            "userName"=>$request->userName,
-            "password"=>$request->password,
+            "name" => $request->name,
+            "lastName" => $request->lastName,
+            "userName" => $request->userName,
+            "password" => $request->password,
             // "photo"=>"abc",
-            "photo"=>'/storage/'.$image,
-            "num_tlf"=>$request->num_tlf,
-            "isAdmin"=>0,
-            "group_id"=>$request->group_id,
-            "jobposition_id"=>$request->jobposition_id
+            "photo" => '/storage/' . $image,
+            "num_tlf" => $request->num_tlf,
+            "isAdmin" => 0,
+            "group_id" => $request->group_id,
+            "jobposition_id" => $request->jobposition_id
 
         ]);
-        return response()->json(["message"=>"added successfully"],201);
+        return response()->json(["message" => "added successfully"], 201);
     }
-   
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $user=User::find($id);
-        return response()->json(["data"=>$user],200);
+        $user = User::find($id);
+        return response()->json(["data" => $user], 200);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -72,37 +73,58 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user=User::find($id);
-            
 
-        $user->update([
-            "name"=>$request->name,
-            "lastName"=>$request->lastName,
-            "userName"=>$request->userName,
-            "password"=>$request->password,
-            "photo"=>$request->photo,
-            "num_tlf"=>$request->num_tlf
-        ]);
-      
-    
-        return response()->json(["message"=>"UpDate successfully"],200);
+        $user = User::find($id);
+        if ($user) {
+            if ($request->avatarupload == 1) {
+                $image = Storage::disk('public')->put('users', $request->file('photo'));
+                $user->update([
+                    "name" => $request->name,
+                    "lastName" => $request->lastName,
+                    "userName" => $request->userName,
+                    "password" => $request->password,
+                    "num_tlf" => $request->num_tlf,
+                    "isAdmin" => 0,
+                    "group_id" => $request->group_id,
+                    "jobposition_id" => $request->jobposition_id,
+                    "photo" => '/storage/' . $image
+                ]);
+            } else {
+                $user->update([
+                    "name" => $request->name,
+                    "lastName" => $request->lastName,
+                    "userName" => $request->userName,
+                    "password" => $request->password,
+                    "num_tlf" => $request->num_tlf,
+                    "isAdmin" => 0,
+                    "group_id" => $request->group_id,
+                    "jobposition_id" => $request->jobposition_id
+                ]);
+
+            }
+            return response()->json(['data' => $user], 200);
+        } else {
+            return response()->json(['data' => "Not Found"], 200);
+        }
     }
-    
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $users= User::find($id);
-        $message ="";
-        if($users==null){
-            $message="user with $id not found";
-            return response()->json(["message"=>$message],404);
-        }
-        else{
+        $users = User::find($id);
+        $message = "";
+        if ($users == null) {
+            $message = "user with $id not found";
+            return response()->json(["message" => $message], 404);
+        } else {
             $users->delete();
-            return response()->json(["message"=>"user deleted"],200);
+            return response()->json(["message" => "user deleted"], 200);
         }
     }
 }

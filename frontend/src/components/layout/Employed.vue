@@ -548,7 +548,7 @@ export default {
         console.log("error");
         this.load = false;
       })
-      router.go();
+      this.$router.go();
       
     },
 

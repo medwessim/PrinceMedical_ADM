@@ -3,10 +3,7 @@ import axios from "axios";
 const ApiClient = axios.create({
     baseURL: "http://localhost:8000/api",
     withCredentials: false,
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-    },
+    
   });
 
   export default {
@@ -17,6 +14,7 @@ const ApiClient = axios.create({
         return ApiClient.delete("/deleteGroup/"+id);
     },
     AddGroup(group){
+      console.log(group);
         return ApiClient.post("/addGroup",group);
     },
     getGroupById(id){

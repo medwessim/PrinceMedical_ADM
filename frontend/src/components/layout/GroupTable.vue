@@ -85,7 +85,7 @@
                                 </svg>
                             </button>
 
-                            <form action="" @submit.prevent="updateUser"
+                            <form  @submit.prevent="AddGroup()"
                                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                                 <p class="text-center text-lg font-medium">Ajouter une zone</p>
 
@@ -93,7 +93,7 @@
                                 <div>
                                     <label for="Username"
                                         class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                                        <input type="text" v-bind="zone_name"
+                                        <input type="text" v-model="zone_name"
                                             class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                                             placeholder="Username" />
 
@@ -149,7 +149,7 @@
                                 <div>
                                     <label for="Username"
                                         class="w-full relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                                        <input type="text" v-bind="zone_name"
+                                        <input type="text" v-model="zone_name"
                                             class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                                             placeholder="Username" />
 
@@ -266,18 +266,34 @@ export default {
         deletePage(id) {
             this.deleteG = true;
             this.idGroup = id;
-            
+
         },
         addGroupPage() {
             this.add = true;
         },
-        deleteGroup(){
-            groupService.deleteGroup(this.idGroup).then((res)=>{
-                 this.getGroups();
+        deleteGroup() {
+            groupService.deleteGroup(this.idGroup).then((res) => {
+                this.getGroups();
             })
             this.deleteG = false;
-        }
-        
+        },
+        AddGroup() {
+            groupService.AddGroup(
+                {
+                    "zone_name": this.zone_name,
+
+                }
+            ).then((res) => {
+                this.zone_name = ""
+
+            }).catch((error) => {
+                console.log("error");
+                this.load = false;
+            })
+            // router.go();
+
+        },
+
     },
 }
 

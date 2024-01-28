@@ -27,12 +27,12 @@
 
               <!-- Profile dropdown -->
               <Menu as="div" class="relative ml-3">
-                <div>
+                <div v-if="store.getuser!=null">
                   <MenuButton
                     class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5" />
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                    <img class="h-8 w-8 rounded-full" :src="'http://localhost:8000'+store?.getuser['photo']" alt="" />
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100"
@@ -43,6 +43,7 @@
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
                     <a :href="item.href"
+                       @click="item.click && item.click()"
                       :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</a>
                     </MenuItem>
                   </MenuItems>
@@ -120,12 +121,15 @@
 </template>
   
 <script setup>
+import router from "@/router";
+import {AuthStore} from "../../store/index.js"
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+
 import { defineProps } from 'vue'
 
 const props = defineProps(['msg', 'add'])
-
+const store=AuthStore();
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -134,6 +138,11 @@ const user = {
 
 const toggleNavigation = (val) => {
   return props.msg === val ? true : false
+}
+
+const Logout=()=>{
+  store.logout();
+  router.push("/");
 }
 
 const navigation = [
@@ -147,7 +156,7 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Sign out', href: '#', click: Logout },
 ]
 </script>
 

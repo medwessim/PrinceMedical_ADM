@@ -44,6 +44,6 @@ route::put('/updatePost/{id}',[JobPositionController::class,'update']);
 
 // route::apiResource('/JobPosts',JobPositionController::class);
 
-route::get('/auth',[SignInUser::class,'LoginUser']);
+route::post('/auth',[SignInUser::class,'SignInUser']);
 
 

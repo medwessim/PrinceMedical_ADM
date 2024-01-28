@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use Illuminate\Http\Request;
+use Psy\Readline\Hoa\Console;
 
 class GroupController extends Controller
 {
@@ -28,15 +30,16 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGroupRequest $request)
+    public function store(Request $request)
     {
-        $group = new Group();
-        $group->zone_name = $request->zone_name;
-        $group->save();
-        // Group::create([
-        //     "zone_name" => $request->zone_name,
-        // ]);
-        return response()->json(["message" => "done"], 201);
+        // $group = new Group();
+        // $group->zone_name = $request->zone_name;
+        // $group->save();
+        
+        Group::create([
+            "zone_name" => $request->zone_name,
+        ]);
+        return response()->json(["message" => "Group created successfull"], 201);
     }
 
     /**

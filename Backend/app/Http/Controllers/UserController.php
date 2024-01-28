@@ -37,7 +37,7 @@ class UserController extends Controller
             "name" => $request->name,
             "lastName" => $request->lastName,
             "userName" => $request->userName,
-            "password" => $request->password,
+            "password" => bcrypt($request->password),
             // "photo"=>"abc",
             "photo" => '/storage/' . $image,
             "num_tlf" => $request->num_tlf,

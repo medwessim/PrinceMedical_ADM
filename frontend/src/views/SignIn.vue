@@ -15,7 +15,7 @@
         inventore quaerat mollitia?
       </p>
   
-      <form @submit.prevent="SignIn()" action="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+      <form @submit.prevent="SignIn()"  class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Sign in to your account</p>
   
         <div>
@@ -106,49 +106,34 @@
 // @ is an alias to /src
 
 import authService from"@/source/Auth.js"
-
+import {AuthStore} from "../store/index.js"
 export default {
   name: 'SignIn',
+  setup(){
+    const store=AuthStore();
+    return {store}
+  },
   components: {
-    
-    
-    
-    
+
   },
   data(){
     return{
       password:'',
       userName:'',
-      load: false
     }
   },
   methods: {
-    SignIn() {
-      // this.userName.$touch();
-      // this.password.$touch();
-      // if(this.validate('email') && this.validate('password')){
-      this.load = true;
-      authService.signInUser(this.email, this.password).then(() => {
-        this.load = false;
-        // const auth = AuthStore();
-        this.$router.push('/');
-        // if (auth.getisadmin == 1) {
-        //   this.$router.push('dashboard');
-        // } else {
-        //   this.$router.push('/');
-        // }
-      }).catch((error) => {
-        this.snackbar_error = true;
-        this.message_error = error.response.data.data;
-        this.check = error.response.data.status;
-        console.log(this.check);
-        if (this.check == 'email') {
-          this.renvoyer = true;
-        }
-        this.load = false;
-      })
-      // }
-    },
+      SignIn() {
+        authService.signInUser(this.userName, this.password).then(() => {
+          if (this.store.getisadmin == 1) {
+            this.$router.push({name:"dashbord"});
+          } else {
+            this.$router.push('/');
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
+      },
   }
 }
 </script>

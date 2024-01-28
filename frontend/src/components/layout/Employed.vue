@@ -11,7 +11,7 @@
             <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search"
               type="search" placeholder="Search website..." />
           </div>
-          <button @click="addUserPage()"
+          <button @click="this.add = true"
             class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
             ADD Employed
           </button>
@@ -31,7 +31,7 @@
         <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
           <button
             class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
-            @click="updateUserPage(user.id)">
+            @click="updateUserPage(user)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="h-4 w-4">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -81,7 +81,7 @@
               class="relative flex items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
               <button type="button"
                 class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                @click="close()">
+                @click="this.add = false">
                 <span class="sr-only">Close</span>
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                   aria-hidden="true">
@@ -248,7 +248,7 @@
                     class="object-cover object-center">
                 </div>
                 <div class="sm:col-span-8 lg:col-span-7">
-                  <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">{{ user.name +" "+ user.lastName }}</h2>
+                  <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">{{ user.name + " " + user.lastName }}</h2>
                   <div class="py-8  flow-root rounded-lg border border-gray-100 shadow-sm ">
                     <dl class="-my-3 divide-y divide-gray-100 text-sm">
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -257,7 +257,7 @@
                       </div>
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                         <dt class="font-medium text-gray-900">Full Name</dt>
-                        <dd class="text-gray-700 sm:col-span-2">{{ user.name +" "+ user.lastName }}</dd>
+                        <dd class="text-gray-700 sm:col-span-2">{{ user.name + " " + user.lastName }}</dd>
                       </div>
 
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -311,14 +311,15 @@
                 </svg>
               </button>
 
-              <form action="" @submit.prevent="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+              <form @submit.prevent="updateUser()" enctype="multipart/form-data"
+                class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">modifier cette compte</p>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="Name"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
-                    <input type="text" :value="user.name" :v-model="user.name"
+                    <input type="text" v-model="name"
                       class="w-full peer border-none bg-transparent  focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12" />
 
 
@@ -326,11 +327,11 @@
                   </label>
                   <label for="LastName"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" :value="user.lastName" :v-model="user.lastName"
+                    <input type="text" v-model="lastName"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="LastName" />
 
-                    
+
 
                   </label>
 
@@ -338,19 +339,18 @@
                 <div>
                   <label for="Username"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" :value="user.userName" :v-model="user.userName"
+                    <input type="text" v-model="userName"
                       class=" w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="Username" />
 
-                    
+
                   </label>
                 </div>
                 <div>
                   <label for="password" class="sr-only">Password</label>
                   <div class="relative">
-                    <input type="password" :value="user.password" :v-model="user.password"
-                      class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                       />
+                    <input type="password" v-model="password"
+                      class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" />
 
                     <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -366,11 +366,11 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label for="phoneNumber"
                     class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input type="text" :value="user.num_tlf" :v-model="user.num_tlf"
+                    <input type="text" v-model="num_tlf"
                       class="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
                       placeholder="phoneNumber" />
 
-                    
+
 
                   </label>
 
@@ -379,7 +379,7 @@
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
                       <option value="">select post</option>
                       <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.job_name }}</option>
-                      
+
 
                     </select>
                   </div>
@@ -388,16 +388,20 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div class="mt-2 flex items-center gap-x-3">
-                    <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <!-- <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path fill-rule="evenodd"
                         d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
                         clip-rule="evenodd" />
 
-                    </svg>
+                    </svg> -->
+                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + photo"
+                      alt="" />
+                    <!-- <img :src="'http://localhost:8000'+photo" :alt="name" width="100px" height="200px"> -->
                     <label for="file-upload"
                       class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                       <span>Upload a photo</span>
-                      <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                      <input id="file-upload" name="file-upload" type="file" class="sr-only" ref="photo"
+                        @change="saveImage">
                     </label>
                     <!-- <button type="button"
                       class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
@@ -441,7 +445,7 @@
             <div class="relative flex items-center overflow-hidden  red-shadow">
               <button type="button"
                 class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                @click="close()">
+                @click="this.deleteU = false">
                 <span class="sr-only">Close</span>
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                   aria-hidden="true">
@@ -463,7 +467,7 @@
                   </button>
 
                   <button type="button" class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600"
-                    @click="close()">
+                    @click="this.deleteU = false">
                     No, go back
                   </button>
                 </div>
@@ -493,6 +497,8 @@ export default {
   },
   data() {
     return {
+      id: "",
+      avatarupload: 0,
       groups: [],
       users: [],
       user: [],
@@ -542,14 +548,16 @@ export default {
         this.photo = "";
         this.group_id = "";
         this.jobposition_id = "";
+        this.$router.go();
 
 
       }).catch((error) => {
         console.log("error");
         this.load = false;
+        
       })
-      this.$router.go();
       
+
     },
 
 
@@ -563,7 +571,7 @@ export default {
       postService.getPostsById(id).then((res) => {
         this.posts = res.data.data;
       })
-      
+
     },
     getGroups() {
       groupService.getGroups().then((res) => {
@@ -595,29 +603,62 @@ export default {
       this.getUserById(tab.id);
       this.getPostsById(tab.jobposition_id);
       this.getGroupsById(tab.group_id);
-      
+
       this.detail = true;
 
     },
-    updateUserPage(id) {
+    updateUserPage(user) {
+
+      // this.getUserById(id);
+      // console.log(this.user);
+      this.name = user.name;
+      this.lastName = user.lastName;
+      this.userName = user.userName;
+      this.password = user.password;
+      this.num_tlf = user.num_tlf;
+      this.group_id = user.group_id;
+      this.photo = user.photo;
+      this.jobposition_id = user.jobposition_id;
+      this.id = user.id;
+      // console.log(user.name);
       this.edit = true;
-      this.getUserById(id);
+
     },
     deletePage(id) {
       this.deleteU = true;
       this.idUser = id;
     },
-    addUserPage() {
-      this.add = true;
+    updateUser() {
+      UserService.UpdateUser({
+        name: this.name,
+        lastName: this.lastName,
+        userName: this.userName,
+        password: this.password,
+        num_tlf: this.num_tlf,
+        group_id: this.group_id,
+        jobposition_id: this.jobposition_id,
+        photo: this.photo,
+        avatarupload: this.avatarupload
+      }, this.id).then((res) => {
+        this.$router.go();
+      })
     },
-    close() {
-      this.detail = false;
-      this.edit = false;
-      this.deleteU = false;
-      this.add = false;
-    },
+
     saveImage() {
       this.photo = this.$refs.photo.files[0];
+      this.avatarupload = 1;
+    },
+    close() {
+      this.detail=false;
+      this.edit = false;
+      this.user = [];
+      this.name = "";
+      this.lastName = "";
+      this.userName = "";
+      this.password = "";
+      this.num_tlf = "";
+      this.photo = "";
+      
     }
   }
 

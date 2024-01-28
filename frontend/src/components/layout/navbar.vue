@@ -145,6 +145,11 @@ const Logout=()=>{
   router.push("/");
 }
 
+const getUser=()=>{
+  store.getuser();
+  
+}
+
 const navigation = [
   { name: 'Dashboard', href: '/Dashbord', current: toggleNavigation('Dashboard') },
   { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
@@ -154,11 +159,12 @@ const navigation = [
 ]
 
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
+  { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
+  { name: 'Settings', href: '/Settings',  },
   { name: 'Sign out', href: '#', click: Logout },
 ]
 </script>
+
 
 
 

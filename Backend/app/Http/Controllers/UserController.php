@@ -73,18 +73,18 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+   
         $user = User::find($id);
         if ($user) {
             if ($request->avatarupload == 1) {
-                $image = Storage::disk('public')->put('users', $request->file('photo'));
+                $file_name = time() . '_' . $request->photo->getClientOriginalName();
+                $image = $request->file('photo')->storeAs('images', $file_name, 'public');
                 $user->update([
                     "name" => $request->name,
                     "lastName" => $request->lastName,
                     "userName" => $request->userName,
                     "password" => $request->password,
                     "num_tlf" => $request->num_tlf,
-                    "isAdmin" => 0,
                     "group_id" => $request->group_id,
                     "jobposition_id" => $request->jobposition_id,
                     "photo" => '/storage/' . $image
@@ -96,7 +96,6 @@ class UserController extends Controller
                     "userName" => $request->userName,
                     "password" => $request->password,
                     "num_tlf" => $request->num_tlf,
-                    "isAdmin" => 0,
                     "group_id" => $request->group_id,
                     "jobposition_id" => $request->jobposition_id
                 ]);

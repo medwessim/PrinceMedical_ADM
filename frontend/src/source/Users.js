@@ -35,8 +35,23 @@ const ApiClient = axios.create({
     getUserById(id){
       return ApiClient.get("/usersDetails/"+id);
     },
-    UpdateUser(id,user){
-      return ApiClient.put("/updateUser/"+id,user);
+    UpdateUser(user,id){
+      let data= new FormData();
+      data.append("name", user.name);
+      data.append("lastName", user.lastName);
+      data.append("userName", user.userName);
+      data.append("password", user.password);
+      data.append("num_tlf", user.num_tlf);
+      data.append("group_id", user.group_id);
+      data.append("jobposition_id", user.jobposition_id);
+      data.append("photo", user.photo);
+      data.append("avatarupload",user.avatarupload);
+      const config = {
+        Headers:{
+          "content-Type" : "multipart/form-data",
+        },
+      };
+      return ApiClient.post("/updateUser/"+id,data,config);
     }
     
 };

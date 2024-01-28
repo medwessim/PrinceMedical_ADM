@@ -24,7 +24,7 @@ route::get('/users',[UserController::class,'index']);
 route::get('/usersDetails/{id}',[UserController::class,'show']);
 route::post('/addUser',[UserController::class,'store']);
 route::delete('/deleteUser/{id}',[UserController::class,'destroy']);
-route::put('/updateUser/{id}',[UserController::class,'update']);
+route::post('/updateUser/{id}',[UserController::class,'update']);
 
 // route::apiResource('/UserPosts',UserController::class);
 

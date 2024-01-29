@@ -554,9 +554,9 @@ export default {
       }).catch((error) => {
         console.log("error");
         this.load = false;
-        
+
       })
-      
+
 
     },
 
@@ -609,8 +609,7 @@ export default {
     },
     updateUserPage(user) {
 
-      // this.getUserById(id);
-      // console.log(this.user);
+
       this.name = user.name;
       this.lastName = user.lastName;
       this.userName = user.userName;
@@ -620,7 +619,7 @@ export default {
       this.photo = user.photo;
       this.jobposition_id = user.jobposition_id;
       this.id = user.id;
-      // console.log(user.name);
+
       this.edit = true;
 
     },
@@ -649,16 +648,16 @@ export default {
       this.avatarupload = 1;
     },
     close() {
-      this.detail=false;
+      this.detail = false;
       this.edit = false;
-      this.user = [];
       this.name = "";
       this.lastName = "";
       this.userName = "";
       this.password = "";
       this.num_tlf = "";
       this.photo = "";
-      
+      this.getGroups();
+      this.getPosts();
     }
   }
 

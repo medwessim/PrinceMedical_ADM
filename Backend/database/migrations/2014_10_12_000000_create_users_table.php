@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('photo')->nullable;
             $table->integer('num_tlf');
             $table->boolean('isAdmin');
+            $table->string('status');
             //$table->foreignId('group_id');
             //$table->foreignId('jobposition_id');
             //$table->foreign('group_id')->references('id')->on('Groups')->cascadeOnDelete();

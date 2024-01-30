@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Chat;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Updatechat_userRequest extends FormRequest
+class SendTextMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class Updatechat_userRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'message' => ['required','max:500'],
+            'chat_id' => ['required'],
         ];
     }
 }

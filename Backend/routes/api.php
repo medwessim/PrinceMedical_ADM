@@ -56,3 +56,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/chat/search-user',[ChatController::class, 'searchUsers']);
     Route::get('/chat/message-status/{message}',[ChatController::class, 'messageStatus']);
 });
+
+Broadcast::routes(['middleware' => ['auth:sanctum']]);

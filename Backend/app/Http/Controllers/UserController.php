@@ -42,6 +42,7 @@ class UserController extends Controller
             "photo" => '/storage/' . $image,
             "num_tlf" => $request->num_tlf,
             "isAdmin" => 0,
+            'status' => 'active',
             "group_id" => $request->group_id,
             "jobposition_id" => $request->jobposition_id
 
@@ -87,7 +88,8 @@ class UserController extends Controller
                     "num_tlf" => $request->num_tlf,
                     "group_id" => $request->group_id,
                     "jobposition_id" => $request->jobposition_id,
-                    "photo" => '/storage/' . $image
+                    "photo" => '/storage/' . $image,
+                    'status' => 'active'
                 ]);
             } else {
                 $user->update([
@@ -97,6 +99,7 @@ class UserController extends Controller
                     "password" => $request->password,
                     "num_tlf" => $request->num_tlf,
                     "group_id" => $request->group_id,
+                    'status' => 'active',
                     "jobposition_id" => $request->jobposition_id
                 ]);
 

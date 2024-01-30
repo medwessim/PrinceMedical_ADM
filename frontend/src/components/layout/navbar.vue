@@ -158,11 +158,11 @@ const navigation = [
   { name: 'Produit', href: 'Produit', current: toggleNavigation('#') },
 ]
 
-const userNavigation = [
-  { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
-  { name: 'Settings', href: '/Settings',  },
-  { name: 'Sign out', href: '#', click: Logout },
-]
+// const userNavigation = [
+//   { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
+//   { name: 'Settings', href: '/Settings',  },
+//   { name: 'Sign out', href: '#', click: Logout },
+// ]
 </script>
 
 

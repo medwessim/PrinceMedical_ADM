@@ -8,13 +8,7 @@
 
 <script>
 export default {
-  mounted(){
-    console.log("test");
-    window.Echo.channel('public').listen('ChatMessageSent',(e)=>{
-      console.log("test test");
-      console.log(e);
-    })
-  }
+  
 }
 </script>
 

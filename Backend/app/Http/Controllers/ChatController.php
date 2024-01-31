@@ -13,12 +13,12 @@ class ChatController extends Controller
 
     public function createChat(Request $request){
       $message=ChatMessages::create([
-        "envoi_id"=>$request->envoi_id,
-        "recu_id"=>$request->recu_id,
-        "message"=>$request->message
+        "envoi_id"=>$request->input('envoi_id'),
+        "recu_id"=>$request->input('recu_id'),
+        "message"=>$request->input('message')
       ]);
 
-      broadcast(new ChatMessageSent($request->message));
+      broadcast(new ChatMessageSent($request->input('message')));
       return response()->json(["message"=>$message],200);
     }
 

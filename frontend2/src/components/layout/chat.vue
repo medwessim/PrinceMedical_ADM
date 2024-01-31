@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <button @click="onSubmit"
+                            <button @click="sentMessage" 
                                 class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0">
                                 <span>Send</span>
                                 <span class="ml-2">
@@ -106,6 +106,12 @@ import chatService from '@/source/chat.js'
 import moment from 'moment'
 
 export default {
+    mounted(){
+    window.Echo.channel('public').listen('ChatMessageSent',(e)=>{
+        this.getMessages();
+        this.getUserById(this.recu_id)
+    })
+  },
     props: {
         envoi_id: Number,
         recu_id: Number,
@@ -114,6 +120,7 @@ export default {
 
     },
     async created() {
+
         this.getMessages();
         this.getUserById(this.recu_id)
         this.moment = moment;
@@ -130,6 +137,7 @@ export default {
             message: '',
             sendUsers: [],
             recuUsers: [],
+            isSendingForm : false,
         }
     },
     methods: {
@@ -143,6 +151,21 @@ export default {
                 
 
 
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
+        },
+        async sentMessage() {
+            try {
+                this.isSendingForm = true;
+                const res = await chatService.sentMessage({
+                    message: this.message,
+                    envoi_id: this.envoi_id,
+                    recu_id: this.recu_id
+                });
+                // this.message="";
+                this.isSendingForm = false;
+                
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }

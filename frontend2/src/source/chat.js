@@ -15,5 +15,9 @@ const ApiClient = axios.create({
         console.log(chat);
         
         return ApiClient.get("/getMessage",{ params: chat });
-    }
+    },
+    sentMessage(chat){
+      console.log(chat);
+      return ApiClient.post("/sendChat", chat);
+  }
   }

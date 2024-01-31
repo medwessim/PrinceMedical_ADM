@@ -30,5 +30,21 @@
                 </div>
             </div>
         </section>
+        <chat msg=""></chat>
     </div>
 </template>
+<script>
+import chat from "@/components/layout/chat.vue"
+
+export default{
+    components: {
+        chat
+    },
+    data() {
+        return {
+
+        }
+    }
+
+}
+</script>

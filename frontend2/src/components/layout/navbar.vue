@@ -122,7 +122,7 @@
   
 <script setup>
 import router from "@/router";
-import {AuthStore} from "@/store/index.js"
+import {AuthStore} from "../../store/index.js"
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
@@ -155,14 +155,14 @@ const navigation = [
   { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
   { name: 'Group', href: '/Group', current: toggleNavigation('Group') },
   { name: 'Post', href: '/Post', current: toggleNavigation('Post') },
-  // { name: 'Produit', href: 'Produit', current: toggleNavigation('#') },
+  { name: 'Produit', href: 'Produit', current: toggleNavigation('#') },
 ]
 
-// const userNavigation = [
-//   { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
-//   { name: 'Settings', href: '/Settings',  },
-//   { name: 'Sign out', href: '#', click: Logout },
-// ]
+const userNavigation = [
+  { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
+  { name: 'Settings', href: '/Settings',  },
+  { name: 'Sign out', href: '#', click: Logout },
+]
 </script>
 
 

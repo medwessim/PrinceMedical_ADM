@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JobPositionController;
@@ -48,13 +49,5 @@ route::put('/updatePost/{id}',[JobPositionController::class,'update']);
 route::post('/auth',[SignInUser::class,'SignInUser']);
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/chat/get-chats',[ChatController::class, 'getChats']);
-    Route::post('/chat/create-chat',[ChatController::class, 'createChat']);
-    Route::get('/chat/get-chat-by-id/{chat}',[ChatController::class, 'getChatById']);
-    Route::post('/chat/send-text-message',[ChatController::class, 'sendTextMessage']);
-    Route::post('/chat/search-user',[ChatController::class, 'searchUsers']);
-    Route::get('/chat/message-status/{message}',[ChatController::class, 'messageStatus']);
-});
-
-Broadcast::routes(['middleware' => ['auth:sanctum']]);
+route::post("/sendChat",[ChatController::class,'createChat']);
+route::get("/getMessage",[ChatController::class,'getMessages']);

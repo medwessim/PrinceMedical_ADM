@@ -2,7 +2,6 @@
     <div class="home">
       <navbar msg="Dashboard" add="addUser"></navbar>
       <dashbord></dashbord>
-      <chat></chat>
 
     </div>
   </template>
@@ -12,7 +11,6 @@
   
   import navbar from '@/components/layout/navbar.vue'
   import dashbord from '@/components/dashbord.vue'
-  import chat from '@/components/layout/chat.vue'
 
   
   
@@ -20,8 +18,7 @@
     name: 'Dashboard',
     components: {
       navbar,
-      dashbord,
-      chat
+      dashbord
       
       
     }

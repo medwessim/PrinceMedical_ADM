@@ -30,7 +30,7 @@
                 </div>
             </div>
         </section>
-        <chat msg=""></chat>
+        <!-- <chat :recu_id="2" :envoi_id="1"></chat> -->
     </div>
 </template>
 <script>
@@ -42,7 +42,8 @@ export default{
     },
     data() {
         return {
-
+            envoi_id: "",
+            recu_id: ""
         }
     }
 

@@ -24,12 +24,12 @@ class ChatController extends Controller
 
 
     public function getMessages(Request $request){
-        $messages=ChatMessages::where("envoi_id",$request->envoi_id)
-                              ->where("recu_id",$request->recu_id)
-                              ->Orwhere("recu_id",$request->envoi_id)
-                              ->where("envoi_id",$request->recu_id)->get();
-
-        return response()->json(["message"=>$messages],200);
+        $messages=ChatMessages::where("envoi_id",$request->input('envoi_id'))
+                              ->where("recu_id",$request->input('recu_id'))
+                              ->Orwhere("recu_id",$request->input('envoi_id'))
+                              ->where("envoi_id",$request->input('recu_id'))->get();
+        
+        return response()->json(["data"=>$messages],200);
     }
 
    

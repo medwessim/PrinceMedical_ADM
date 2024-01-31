@@ -3,14 +3,12 @@
         <aside
             class="border-4 border-currentColor-500/50  fixed bottom-4 end-4 z-50  items-center justify-center gap-4 rounded-lg bg-white  shadow-2xl w-96">
             <div class="relative flex items-center overflow-hidden bg-white px-4 h-20 shadow-2xl ">
-                <img alt="Women"
-                    src="https://images.unsplash.com/photo-1611432579699-484f7990b127?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                    class="h-12 w-12 rounded-lg object-cover" />
+                <img alt="Women" :src="'http://localhost:8000' + user.photo" class="h-12 w-12 rounded-lg object-cover" />
                 <a href="/new-thing" target="_blank" rel="noreferrer" class="text-sm font-medium hover:opacity-75 pl-4">
-                    name 👋
+                    {{ user.name + " " + user.lastName }} 👋
                 </a>
 
-                <button type="button"
+                <button type="button" @click="closeView"
                     class="absolute right-4 top-4 bg-sky-100 text-gray-400 hover:text-gray-500 sm:right-4 sm:top-4 md:right-6 md:top-6 lg:right-8 lg:top-6">
                     <span class="sr-only">Close</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -24,46 +22,35 @@
                     <div class="py-2 px-4 border-bottom d-none d-lg-block">
                         <div>
                             <div class="flex flex-col flex-grow  p-4 overflow-auto h-72">
-                                <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                                    <div>
-                                        <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg w-52">
-                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <div v-for="chats in chat" :key="chats.id">
+                                    <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                                        <div v-if="this.envoi_id == chats.recu_id">
+
+                                            <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg w-52">
+                                                <p class="text-sm">{{ chats.message }}</p>
+                                            </div>
+                                            <span class="text-xs text-gray-500 leading-none">{{
+                                                moment(chats.created_at).format("DD-MM-yy, h:m a") }}</span>
                                         </div>
-                                        <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                                    </div>
+                                    <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                                        <div v-if="this.envoi_id == chats.envoi_id">
+                                            <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg w-52">
+                                                <p class="text-sm"> {{ chats.message }} </p>
+                                            </div>
+                                            <span class="text-xs text-gray-500 leading-none">{{
+                                                moment(chats.created_at).format("DD-MM-yy, h:m a") }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                                    <div>
-                                        <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg w-52">
-                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                                do eiusmod.</p>
-                                        </div>
-                                        <span class="text-xs text-gray-500 leading-none">2 min ago</span>
-                                    </div>
-                                </div>
-                                <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                                    <div>
-                                        <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg w-52">
-                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                        <span class="text-xs text-gray-500 leading-none">2 min ago</span>
-                                    </div>
-                                </div>
-                                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                                    <div>
-                                        <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg w-52">
-                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                                do eiusmod.</p>
-                                        </div>
-                                        <span class="text-xs text-gray-500 leading-none">2 min ago</span>
-                                    </div>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-grow-0 py-3 px-4 border-top">
+                <div class="flex-grow-0 py-2 px-2 border-top">
                     <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
                         <div>
                             <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
@@ -77,7 +64,7 @@
                         </div>
                         <div class="flex-grow ml-4">
                             <div class="relative w-full">
-                                <input type="text"
+                                <input type="text" v-model="message" 
                                     class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10" />
                                 <button
                                     class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
@@ -108,5 +95,67 @@
 
             </div>
         </aside>
+        
     </div>
 </template>
+
+<script>
+
+import UserService from "../../source/Users.js"
+import chatService from '@/source/chat.js'
+import moment from 'moment'
+
+export default {
+    props: {
+        envoi_id: Number,
+        recu_id: Number,
+    },
+    setup() {
+
+    },
+    async created() {
+        this.getMessages();
+        this.getUserById(this.recu_id)
+        this.moment = moment;
+
+    },
+    components: {
+        
+    },
+    data() {
+        return {
+            user: [],
+            messages: [],
+            chat: [],
+            message: '',
+            sendUsers: [],
+            recuUsers: [],
+        }
+    },
+    methods: {
+        async getMessages() {
+            try {
+                const res = await chatService.getMessages({
+                    envoi_id: this.envoi_id,
+                    recu_id: this.recu_id
+                });
+                this.chat = res.data.data;
+                
+
+
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
+        },
+        getUserById(id) {
+            UserService.getUserById(id).then((res) => {
+                this.user = res.data.data;
+            })
+        },
+        closeView() {
+            
+            this.$emit('close-view');
+        },
+    }
+}
+</script>

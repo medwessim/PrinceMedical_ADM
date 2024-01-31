@@ -24,8 +24,9 @@
         <div class="flex min-w-0 gap-x-4">
           <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + user.photo" alt="" />
           <div class="min-w-0 flex-auto">
-            <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name }}</p>
+            <button @click="openChat(user.id)"><p class="text-sm font-semibold leading-6 text-gray-900" >{{ user.name }}</p></button>
             <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.userName }}</p>
+            
           </div>
         </div>
         <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
@@ -477,6 +478,8 @@
         </div>
       </div>
     </div>
+    <chat v-if="chat == true" :recu_id="this.recu_id" :envoi_id="store.getuser['id']" @close-view="closeViewHandler"></chat>
+    
   </div>
 </template>
   
@@ -487,9 +490,14 @@ import router from "@/router";
 import UserService from "../../source/Users.js"
 import groupService from "@/source/Group.js"
 import postService from "@/source/Post.js"
+import chat from "@/components/layout/chat.vue"
+import {AuthStore} from "@/store/index.js"
+// import store from "@/store/index"
 
 export default {
+  
   created() {
+    // const store=AuthStore();
     this.getUsers();
     this.getGroups();
     this.getPosts();
@@ -497,6 +505,8 @@ export default {
   },
   data() {
     return {
+      store:AuthStore(),
+      recu_id:"",
       id: "",
       avatarupload: 0,
       groups: [],
@@ -518,11 +528,14 @@ export default {
       edit: false,
       deleteU: false,
       idUser: null,
+      userChat: "",
+      chat: false,
+      
 
     }
   },
   components: {
-
+    chat
   },
   methods: {
 
@@ -658,7 +671,22 @@ export default {
       this.photo = "";
       this.getGroups();
       this.getPosts();
-    }
+    },
+    openChat(id){
+      if(this.chat == true){
+        this.chat=false
+        console.log(id);
+      }
+      else{
+      this.recu_id=id;
+      this.chat=true;
+      }
+      
+    },
+    closeViewHandler() {
+      // Handle the event here, e.g., close the view
+      this.chat=false
+    },
   }
 
 }

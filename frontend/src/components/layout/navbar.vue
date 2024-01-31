@@ -155,7 +155,7 @@ const navigation = [
   { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
   { name: 'Group', href: '/Group', current: toggleNavigation('Group') },
   { name: 'Post', href: '/Post', current: toggleNavigation('Post') },
-  { name: 'Produit', href: 'Produit', current: toggleNavigation('#') },
+  
 ]
 
 const userNavigation = [

@@ -11,12 +11,21 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(string $id)
+    public function index(string $id, Request $request)
     {
         // $users = User::all();
-        $excludedUserIds = [$id];
-        $users = User::whereNotIn('id', $excludedUserIds)->get();
+        if (isset($request->search)) {
+            $excludedUserIds = [$id];
+            $users = User::whereNotIn('id', $excludedUserIds)->where('userName','like','%'.$request->search.'%')->get();
+        }
+        else{
+            $excludedUserIds = [$id];
+            $users = User::whereNotIn('id', $excludedUserIds)->get();
+        
+        }
+
         return response()->json(["data" => $users], 200);
+
     }
 
     /**
@@ -59,7 +68,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
-        
+
         return response()->json(["data" => $user], 200);
     }
 
@@ -77,7 +86,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-   
+
         $user = User::find($id);
         if ($user) {
             if ($request->avatarupload == 1) {

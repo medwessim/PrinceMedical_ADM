@@ -8,7 +8,7 @@
           <div class="justify-end">
             <label class="sr-only" for="search"> Search </label>
 
-            <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search"
+            <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search" v-model="search" @keyup="getUsers(store.getuser['id'])"
               type="search" placeholder="Search website..." />
           </div>
           <button @click="this.add = true"
@@ -505,6 +505,7 @@ export default {
   },
   data() {
     return {
+      search: "",
       store:AuthStore(),
       recu_id:"",
       id: "",
@@ -597,7 +598,7 @@ export default {
       })
     },
     getUsers(id) {
-      UserService.getUsers(id).then((res) => {
+      UserService.getUsers(id,this.search).then((res) => {
         this.users = res.data.data;
         
       })

@@ -22,7 +22,7 @@
                     <div class="py-2 px-4 border-bottom d-none d-lg-block">
                         <div>
                             <div class="flex flex-col flex-grow  p-4 overflow-auto h-72">
-                                <div v-for="chats in chat" :key="chats.id">
+                                <div v-for="chats in chat" :key="chats.id" ref="messsageContainers">
                                     <div class="flex w-full mt-2 space-x-3 max-w-xs">
                                         <div v-if="this.envoi_id == chats.recu_id">
 
@@ -64,7 +64,7 @@
                         </div>
                         <div class="flex-grow ml-4">
                             <div class="relative w-full">
-                                <input type="text" v-model="message" 
+                                <input type="text" v-model="message"
                                     class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10" />
                                 <button
                                     class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <button @click="sentMessage" 
+                            <button @click="sentMessage"
                                 class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0">
                                 <span>Send</span>
                                 <span class="ml-2">
@@ -95,7 +95,7 @@
 
             </div>
         </aside>
-        
+
     </div>
 </template>
 
@@ -106,12 +106,12 @@ import chatService from '@/source/chat.js'
 import moment from 'moment'
 
 export default {
-    mounted(){
-    window.Echo.channel('public').listen('ChatMessageSent',(e)=>{
-        this.getMessages();
-        this.getUserById(this.recu_id)
-    })
-  },
+    mounted() {
+        window.Echo.channel('public').listen('ChatMessageSent', (e) => {
+            this.getMessages();
+            this.getUserById(this.recu_id)
+        })
+    },
     props: {
         envoi_id: Number,
         recu_id: Number,
@@ -127,7 +127,7 @@ export default {
 
     },
     components: {
-        
+
     },
     data() {
         return {
@@ -137,10 +137,24 @@ export default {
             message: '',
             sendUsers: [],
             recuUsers: [],
-            isSendingForm : false,
+            isSendingForm: false,
         }
     },
     methods: {
+        scrollToLastMessage() {
+            this.$nextTick(() => {
+                let items = this.$refs.messsageContainers;
+                let last = items[items.length - 1];
+                if (items.length > 0) {
+                    last.scrollIntoView({
+                        block: "nearest",
+                        inline: "center",
+                        behavior: "smooth",
+                        alignToTop: false
+                    });
+                }
+            })
+        },
         async getMessages() {
             try {
                 const res = await chatService.getMessages({
@@ -148,7 +162,8 @@ export default {
                     recu_id: this.recu_id
                 });
                 this.chat = res.data.data;
-                
+                this.scrollToLastMessage();
+
 
 
             } catch (error) {
@@ -163,9 +178,9 @@ export default {
                     envoi_id: this.envoi_id,
                     recu_id: this.recu_id
                 });
-                // this.message="";
+                this.message = "";
                 this.isSendingForm = false;
-                
+
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
@@ -176,7 +191,7 @@ export default {
             })
         },
         closeView() {
-            
+
             this.$emit('close-view');
         },
     }

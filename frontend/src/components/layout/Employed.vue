@@ -498,7 +498,7 @@ export default {
   
   created() {
     // const store=AuthStore();
-    this.getUsers();
+    this.getUsers(this.store.getuser['id']);
     this.getGroups();
     this.getPosts();
 
@@ -596,9 +596,10 @@ export default {
         this.groups = res.data.data;
       })
     },
-    getUsers() {
-      UserService.getUsers().then((res) => {
+    getUsers(id) {
+      UserService.getUsers(id).then((res) => {
         this.users = res.data.data;
+        console.log(this.users);
       })
     },
     getUserById(id) {

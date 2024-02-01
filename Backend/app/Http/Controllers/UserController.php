@@ -11,9 +11,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $id)
     {
-        $users = User::all();
+        // $users = User::all();
+        $excludedUserIds = [$id];
+        $users = User::whereNotIn('id', $excludedUserIds)->get();
         return response()->json(["data" => $users], 200);
     }
 

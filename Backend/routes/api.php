@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-route::get('/users',[UserController::class,'index']);
+route::get('/users/{id}',[UserController::class,'index']);
 route::get('/usersDetails/{id}',[UserController::class,'show']);
 route::post('/addUser',[UserController::class,'store']);
 route::delete('/deleteUser/{id}',[UserController::class,'destroy']);

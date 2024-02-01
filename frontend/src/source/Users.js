@@ -4,13 +4,16 @@ const ApiClient = axios.create({
     baseURL: "http://localhost:8000/api",
     withCredentials: false,
     
+    
   });
 
   export default {
-    getUsers(){
-        return ApiClient.get("/users");
+    getUsers(id){
+      console.log(id);
+        return ApiClient.get("/users/"+id);
     },
     deleteUser(id){
+      
         return ApiClient.delete("/deleteUser/"+id);
     },
     AddUser(user){

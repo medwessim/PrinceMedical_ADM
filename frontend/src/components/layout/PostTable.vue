@@ -4,7 +4,7 @@
             <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
                 <div class="flex items-center  gap-4">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Post </h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Poste </h1>
                     <div class="justify-end">
                         <label class="sr-only" for="search"> Search </label>
 
@@ -13,7 +13,7 @@
                     </div>
                     <router-link to="/add"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
-                        ADD Post
+                        Ajouter Nouvelle Poste
                     </router-link>
 
                 </div>
@@ -24,11 +24,11 @@
             <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead class="ltr:text-left rtl:text-right">
                     <tr>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">posts</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">created_at</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">updated_at</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">operation</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ID Poste</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">postes</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">créé à la</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">mise à jour à</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">opération</th>
                     </tr>
                 </thead>
 

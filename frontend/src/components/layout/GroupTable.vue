@@ -4,7 +4,7 @@
             <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
                 <div class="flex items-center  gap-4">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Group </h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Zone </h1>
                     <div class="justify-end">
                         <label class="sr-only" for="search"> Search </label>
 
@@ -13,7 +13,7 @@
                     </div>
                     <button @click="addGroupPage()"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
-                        ADD Group
+                        Ajouter Nouvelle Zone 
                     </button>
 
                 </div>
@@ -24,11 +24,11 @@
             <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead class="ltr:text-left rtl:text-right">
                     <tr>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Zone_Name</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">created_at</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">updated_at</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">operation</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id zone</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">nom du zone</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">créé à</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">mise à jour à</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">opération</th>
                     </tr>
                 </thead>
 
@@ -99,7 +99,7 @@
 
                                         <span
                                             class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                                            Zone Name
+                                            Nom du Zone
                                         </span>
                                     </label>
                                 </div>
@@ -198,21 +198,21 @@
                             </button>
 
                             <div class="rounded-lg bg-white p-8 shadow-2xl">
-                                <h2 class="text-lg font-bold">Are you sure you want to do that?</h2>
+                                <h2 class="text-lg font-bold">Tu es sûr de vouloir faire ça ?</h2>
 
                                 <p class="mt-2 text-sm text-gray-500">
-                                    Doing that could have cause some issues elsewhere, are you 100% sure it's OK?
+                                    Faire cela pourrait causer des problèmes ailleurs, êtes-vous sûr à 100% que c’est OK?
                                 </p>
 
                                 <div class="mt-4 flex gap-2">
                                     <button type="button" @click="deleteGroup()"
                                         class="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600">
-                                        Yes, I'm sure
+                                        Oui, je suis sûr que
                                     </button>
 
                                     <button type="button" @click="close()"
                                         class="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600">
-                                        No, go back
+                                        Non, reviens
                                     </button>
                                 </div>
                             </div>

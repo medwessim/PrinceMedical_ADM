@@ -151,10 +151,10 @@ const getUser=()=>{
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/Dashbord', current: toggleNavigation('Dashboard') },
-  { name: 'Employed', href: '/employed', current: toggleNavigation('Employed') },
-  { name: 'Group', href: '/Group', current: toggleNavigation('Group') },
-  { name: 'Post', href: '/Post', current: toggleNavigation('Post') },
+  { name: 'Accueil', href: '/Dashbord', current: toggleNavigation('Dashboard') },
+  { name: 'Employé', href: '/employed', current: toggleNavigation('Employed') },
+  { name: 'Zone', href: '/Group', current: toggleNavigation('Group') },
+  { name: 'Poste', href: '/Post', current: toggleNavigation('Post') },
   
 ]
 

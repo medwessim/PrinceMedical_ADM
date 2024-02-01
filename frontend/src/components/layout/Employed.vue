@@ -599,7 +599,7 @@ export default {
     getUsers(id) {
       UserService.getUsers(id).then((res) => {
         this.users = res.data.data;
-        console.log(this.users);
+        
       })
     },
     getUserById(id) {

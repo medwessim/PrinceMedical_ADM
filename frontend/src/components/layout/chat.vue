@@ -143,9 +143,10 @@ export default {
     methods: {
         scrollToLastMessage() {
             this.$nextTick(() => {
+
                 let items = this.$refs.messsageContainers;
-                let last = items[items.length - 1];
-                if (items.length > 0) {
+                if (items && items.length > 0) {
+                    let last = items[items.length - 1];
                     last.scrollIntoView({
                         block: "nearest",
                         inline: "center",

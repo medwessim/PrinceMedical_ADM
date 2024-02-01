@@ -160,8 +160,8 @@ const navigation = [
 
 const userNavigation = [
   { name: store.getuser['name']+" "+ store.getuser['lastName'], href: '#' },
-  { name: 'Settings', href: '/Settings',  },
-  { name: 'Sign out', href: '#', click: Logout },
+  { name: 'paramètres', href: '/Settings',  },
+  { name: 'se déconnecter', href: '#', click: Logout },
 ]
 </script>
 

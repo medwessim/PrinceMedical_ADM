@@ -4,7 +4,7 @@
             <div class="mx-auto max-w-7xl  py-8 sm:px-6 ">
 
                 <div class="flex items-center  gap-4">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashbord </h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Acceuil </h1>
 
 
                 </div>
@@ -17,8 +17,8 @@
                     <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-5xl">dernières nouvelles</h2>
 
                     <p class="hidden max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore officia corporis quasi
-                        doloribus iure architecto quae voluptatum beatae excepturi dolores.
+                        <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore officia corporis quasi
+                        doloribus iure architecto quae voluptatum beatae excepturi dolores. -->
                     </p>
 
                     <div class="mt-4 sm:mt-8">

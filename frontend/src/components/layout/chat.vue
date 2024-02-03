@@ -135,8 +135,6 @@ export default {
             messages: [],
             chat: [],
             message: '',
-            sendUsers: [],
-            recuUsers: [],
             isSendingForm: false,
         }
     },

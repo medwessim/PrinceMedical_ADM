@@ -9,7 +9,7 @@ const ApiClient = axios.create({
 
   export default {
     getUsers(id,search){
-      console.log(id);
+      // console.log(id);
         return ApiClient.get(`/users/${id}?${search!=''?'search='+search:''}`);
     },
     deleteUser(id){

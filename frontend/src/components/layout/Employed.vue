@@ -8,8 +8,8 @@
           <div class="justify-end">
             <label class="sr-only" for="search"> Search </label>
 
-            <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search" v-model="search" @keyup="getUsers(store.getuser['id'])"
-              type="search" placeholder="Search website..." />
+            <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search"
+              v-model="search" @keyup="getUsers(store.getuser['id'])" type="search" placeholder="Search website..." />
           </div>
           <button @click="this.add = true"
             class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
@@ -24,9 +24,11 @@
         <div class="flex min-w-0 gap-x-4">
           <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + user.photo" alt="" />
           <div class="min-w-0 flex-auto">
-            <button @click="openChat(user.id)"><p class="text-sm font-semibold leading-6 text-gray-900" >{{ user.name +" "+ user.lastName }}</p></button>
+            <button @click="openChat(user.id)">
+              <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name + " " + user.lastName }}</p>
+            </button>
             <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.userName }}</p>
-            
+
           </div>
         </div>
         <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
@@ -191,8 +193,6 @@
                       <input id="file-upload" name="file-upload" type="file" class="sr-only" ref="photo"
                         @change="saveImage">
                     </label>
-                    <!-- <button type="button"
-                      class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> -->
                   </div>
                   <div>
 
@@ -389,15 +389,10 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div class="mt-2 flex items-center gap-x-3">
-                    <!-- <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd"
-                        d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                        clip-rule="evenodd" />
 
-                    </svg> -->
                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + photo"
                       alt="" />
-                    <!-- <img :src="'http://localhost:8000'+photo" :alt="name" width="100px" height="200px"> -->
+
                     <label for="file-upload"
                       class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                       <span>Upload a photo</span>
@@ -478,8 +473,9 @@
         </div>
       </div>
     </div>
-    <chat v-if="chat == true" :recu_id="this.recu_id" :envoi_id="store.getuser['id']" @close-view="closeViewHandler"></chat>
-    
+    <chat v-if="chat == true" :recu_id="this.recu_id" :envoi_id="store.getuser['id']" @close-view="closeViewHandler">
+    </chat>
+
   </div>
 </template>
   
@@ -491,11 +487,11 @@ import UserService from "../../source/Users.js"
 import groupService from "@/source/Group.js"
 import postService from "@/source/Post.js"
 import chat from "@/components/layout/chat.vue"
-import {AuthStore} from "@/store/index.js"
+import { AuthStore } from "@/store/index.js"
 // import store from "@/store/index"
 
 export default {
-  
+
   created() {
     // const store=AuthStore();
     this.getUsers(this.store.getuser['id']);
@@ -506,8 +502,8 @@ export default {
   data() {
     return {
       search: "",
-      store:AuthStore(),
-      recu_id:"",
+      store: AuthStore(),
+      recu_id: "",
       id: "",
       avatarupload: 0,
       groups: [],
@@ -531,7 +527,7 @@ export default {
       idUser: null,
       userChat: "",
       chat: false,
-      
+
 
     }
   },
@@ -598,9 +594,9 @@ export default {
       })
     },
     getUsers(id) {
-      UserService.getUsers(id,this.search).then((res) => {
+      UserService.getUsers(id, this.search).then((res) => {
         this.users = res.data.data;
-        
+
       })
     },
     getUserById(id) {
@@ -674,20 +670,20 @@ export default {
       this.getGroups();
       this.getPosts();
     },
-    openChat(id){
-      if(this.chat == true){
-        this.chat=false
+    openChat(id) {
+      if (this.chat == true) {
+        this.chat = false
         console.log(id);
       }
-      else{
-      this.recu_id=id;
-      this.chat=true;
+      else {
+        this.recu_id = id;
+        this.chat = true;
       }
-      
+
     },
     closeViewHandler() {
       // Handle the event here, e.g., close the view
-      this.chat=false
+      this.chat = false
     },
   }
 

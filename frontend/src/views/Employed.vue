@@ -11,6 +11,7 @@
   
   import navbar from '@/components/layout/navbar.vue'
   import Employed from '@/components/layout/Employed.vue'
+  
 
   
   export default {

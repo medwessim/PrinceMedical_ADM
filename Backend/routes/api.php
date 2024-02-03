@@ -52,4 +52,7 @@ route::post('/auth',[SignInUser::class,'SignInUser']);
 
 route::post("/sendChat",[ChatController::class,'createChat']);
 route::get("/getMessage",[ChatController::class,'getMessages']);
+
+
 route::get("/getNotif",[NotificationController::class,'getNotif']);
+route::delete("/deleteNotif/{id}",[NotificationController::class,'deleteNotif']);

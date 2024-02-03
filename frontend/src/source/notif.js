@@ -15,5 +15,8 @@ const ApiClient = axios.create({
         
         return ApiClient.get("/getNotif",{ params: notif });
     },
+    deleteNotif(id){
+      return ApiClient.delete("/deleteNotif/"+id);
+    }
     
   }

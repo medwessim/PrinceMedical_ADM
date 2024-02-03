@@ -14,4 +14,12 @@ class NotificationController extends Controller
 
         return response()->json(["data" => $messages], 200);
     }
+    public function deleteNotif(string $id)
+    {
+        $users = Notifications::find($id);
+        
+        $users->delete();
+        return response()->json(["message" => "notification deleted"], 200);
+        
+    }
 }

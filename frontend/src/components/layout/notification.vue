@@ -21,9 +21,14 @@
 
         <!-- Dropdown menu -->
         <div v-if="dropdown == true"
-            class="ml-6 absolute mr-8  z-10 mt-2 w-[300px] divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
+            class="flex flex-col flex-grow  overflow-auto h-[400px] ml-6 absolute mr-8  z-10 mt-2 w-[300px] divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg "
             role="menu">
-            <div class=" p-2" v-for="notif in notifs" :key="notif.id">
+            <div v-if="notifs.length == 0" role="alert" class=" rounded border-s-4 border-green-500 bg-green-50 p-4">
+                <strong class="block font-medium text-green-800"> Pas de notification </strong>
+
+                
+            </div>
+            <div class=" p-2" v-for="notif in notifs.slice().reverse()" :key="notif.id">
                 <div v-for="user in users" :key="user.id">
                     <div id="toast-notification"
                         class="w-full max-w-xs p-4 text-gray-900 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-300"
@@ -31,7 +36,7 @@
 
                         <div class="flex items-center mb-3">
                             <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">New notification</span>
-                            <button type="button"
+                            <button type="button" @click="deleteNotif(notif.id)"
                                 class="ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
                                 data-dismiss-target="#toast-notification" aria-label="Close">
                                 <span class="sr-only">Close</span>
@@ -44,7 +49,8 @@
                         </div>
                         <div class="flex items-center">
                             <div class="relative inline-block shrink-0">
-                                <img class="w-12 h-12 rounded-full" alt="Jese Leos image" :src="'http://localhost:8000' + user.photo"/>
+                                <img class="w-12 h-12 rounded-full" alt="Jese Leos image"
+                                    :src="'http://localhost:8000' + user.photo" />
                                 <span
                                     class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
                                     <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +91,7 @@ export default {
     mounted() {
         window.Echo.channel('public').listen('ChatMessageSent', (e) => {
             this.getNotif();
-            
+
 
         })
     },
@@ -105,8 +111,8 @@ export default {
             notifs: [],
             users: [],
             search: "",
-            
-           
+
+
         }
     },
     methods: {
@@ -116,9 +122,9 @@ export default {
                     recu_id: this.recu_id
                 });
                 this.notifs = res.data.data;
-                this.tail=this.notifs.length;
-                
-                
+                this.tail = this.notifs.length;
+
+
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
@@ -126,10 +132,17 @@ export default {
         getUsers() {
             UserService.getUsers(this.recu_id, this.search).then((res) => {
                 this.users = res.data.data;
-                
+
 
             })
         },
+        deleteNotif(id) {
+            notifService.deleteNotif(id).then((res) => {
+                this.getNotif();
+                console.log("notif deleted");
+
+            })
+        }
     }
 
 }

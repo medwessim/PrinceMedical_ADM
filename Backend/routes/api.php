@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\auth\LoginUser;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignInUser;
 use App\Http\Controllers\UserController;
@@ -51,3 +52,4 @@ route::post('/auth',[SignInUser::class,'SignInUser']);
 
 route::post("/sendChat",[ChatController::class,'createChat']);
 route::get("/getMessage",[ChatController::class,'getMessages']);
+route::get("/getNotif",[NotificationController::class,'getNotif']);

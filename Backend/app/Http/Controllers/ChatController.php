@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ChatMessageSent;
 use App\Models\ChatMessages;
+use App\Models\Notifications;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,15 @@ class ChatController extends Controller
         "recu_id"=>$request->input('recu_id'),
         "message"=>$request->input('message')
       ]);
+      $notif=Notifications::create([
+        "envoi_id"=>$request->input('envoi_id'),
+        "recu_id"=>$request->input('recu_id'),
+        "message"=>$request->input('message')
+      ]);
 
       broadcast(new ChatMessageSent($request->input('message')));
-      return response()->json(["message"=>$message],200);
+      
+      return response()->json(["message"=>$message,"notif"=>$notif],200);
     }
 
 

@@ -23,6 +23,7 @@ class UserController extends Controller
             $users = User::whereNotIn('id', $excludedUserIds)->get();
         
         }
+        
 
         return response()->json(["data" => $users], 200);
 

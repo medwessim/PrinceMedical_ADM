@@ -45,7 +45,7 @@
               </Menu>
               <!-- notification dropdown -->
               
-              <Notif :recu_id="store.getuser['id']" add="aa" />
+              <Notif :recu_id="store.getuser['id']"  />
             </div>
           </div>
           <div class="-mr-2 flex md:hidden">
@@ -72,11 +72,8 @@
             <div class="flex-shrink-0">
               <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
             </div>
-            <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
-              <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
-            </div>
-            <button type="button"
+            
+            <button v-if="store.getuser !== null" type="button"
               class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="absolute -inset-1.5" />
               <span class="sr-only">View notifications</span>
@@ -142,7 +139,7 @@ const navigation = [
 const userNavigation = [
   { name: store.getuser['name'] + " " + store.getuser['lastName'], href: '#' },
   { name: 'paramètres', href: '/Settings', },
-  { name: 'se déconnecter', href: '#', click: Logout },
+  { name: 'se déconnecter',  click: Logout },
 ]
 </script>
 

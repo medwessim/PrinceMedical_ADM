@@ -12,7 +12,7 @@ const ApiClient = axios.create({
 
   export default {
     getNotif(notif){
-        console.log(notif);
+        
         return ApiClient.get("/getNotif",{ params: notif });
     },
     

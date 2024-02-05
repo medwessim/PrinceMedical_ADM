@@ -1,5 +1,6 @@
 import { ref,computed } from "vue"
 import { defineStore } from "pinia";
+import { stringify } from "postcss";
 
 export const AuthStore=defineStore('auth',()=>{
 
@@ -35,8 +36,14 @@ export const AuthStore=defineStore('auth',()=>{
         localStorage.removeItem('user');
    
     }
+    function setUser(u){
+        user.value=null;
+        localStorage.removeItem('user');
+        user.value=u;
+        localStorage.setItem('user',JSON.stringify(u));
+    }
 
-    return {login,logout,token,user,isauth,isAdmin,getToken,getisadmin,getisauth,getuser}
+    return {login,setUser,logout,token,user,isauth,isAdmin,getToken,getisadmin,getisauth,getuser}
   
 })
 

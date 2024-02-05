@@ -22,7 +22,7 @@
 
               <!-- Profile dropdown -->
               <Menu as="div" class="relative ml-3">
-                <div v-if="store.getuser != null">
+                <div v-if="store.getuser !== null">
                   <MenuButton
                     class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5" />
@@ -45,7 +45,7 @@
               </Menu>
               <!-- notification dropdown -->
               
-              <Notif :recu_id="store.getuser['id']"  />
+              <Notif :recu_id="store.getuser !== null ? store.getuser['id'] : null"  />
             </div>
           </div>
           <div class="-mr-2 flex md:hidden">

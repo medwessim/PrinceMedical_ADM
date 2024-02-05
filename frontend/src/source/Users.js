@@ -43,7 +43,6 @@ const ApiClient = axios.create({
       data.append("name", user.name);
       data.append("lastName", user.lastName);
       data.append("userName", user.userName);
-      data.append("password", user.password);
       data.append("num_tlf", user.num_tlf);
       data.append("group_id", user.group_id);
       data.append("jobposition_id", user.jobposition_id);

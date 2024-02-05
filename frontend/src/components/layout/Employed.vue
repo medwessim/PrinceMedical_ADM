@@ -11,10 +11,12 @@
             <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56" id="search"
               v-model="search" @keyup="getUsers(store.getuser['id'])" type="search" placeholder="Search website..." />
           </div>
-          <button @click="this.add = true"
+
+          <button @click="this.add = true" v-if="isAdmin == 1"
             class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
             Ajouter Nouvelle Employé
           </button>
+
 
         </div>
       </div>
@@ -32,7 +34,7 @@
           </div>
         </div>
         <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
-          <button
+          <button v-if="isAdmin == 1"
             class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative"
             @click="updateUserPage(user)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,7 +59,7 @@
             voir
           </button>
 
-          <button
+          <button v-if="isAdmin == 1"
             class="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-blue-500 shadow-sm focus:relative"
             @click="deletePage(user.id)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -497,12 +499,15 @@ export default {
     this.getUsers(this.store.getuser['id']);
     this.getGroups();
     this.getPosts();
+    this.getAdmin();
 
   },
   data() {
     return {
+
       search: "",
       store: AuthStore(),
+      isAdmin: 0,
       recu_id: "",
       id: "",
       avatarupload: 0,
@@ -535,6 +540,9 @@ export default {
     chat
   },
   methods: {
+    getAdmin() {
+      this.isAdmin = this.store.getuser['isAdmin'];
+    },
 
 
     AddUser() {
@@ -558,7 +566,8 @@ export default {
         this.photo = "";
         this.group_id = "";
         this.jobposition_id = "";
-        this.$router.go();
+        this.getUsers(this.store.getuser['id']);
+        this.add = false;
 
 
       }).catch((error) => {
@@ -606,7 +615,7 @@ export default {
     },
     deleteUser() {
       UserService.deleteUser(this.idUser).then((res) => {
-        this.getUsers();
+        this.getUsers(this.store.getuser['id']);
         this.deleteU = false;
       })
     },
@@ -643,14 +652,15 @@ export default {
         name: this.name,
         lastName: this.lastName,
         userName: this.userName,
-        password: this.password,
+        
         num_tlf: this.num_tlf,
         group_id: this.group_id,
         jobposition_id: this.jobposition_id,
         photo: this.photo,
         avatarupload: this.avatarupload
       }, this.id).then((res) => {
-        this.$router.go();
+        this.getUsers(this.store.getuser['id']);
+        this.edit = false;
       })
     },
 

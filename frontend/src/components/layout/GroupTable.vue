@@ -11,9 +11,9 @@
                         <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
                             id="search" type="search" placeholder="Search website..." />
                     </div>
-                    <button @click="addGroupPage()"
+                    <button @click="addGroupPage()" v-if="isAdmin == 1"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
-                        Ajouter Nouvelle Zone 
+                        Ajouter Nouvelle Zone
                     </button>
 
                 </div>
@@ -28,7 +28,7 @@
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">nom du zone</th>
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">créé à</th>
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">mise à jour à</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">opération</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900" v-if="isAdmin == 1">opération</th>
                     </tr>
                 </thead>
 
@@ -38,9 +38,9 @@
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ group.zone_name }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ group.created_at }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ group.updated_at }}</td>
-                        <td class="whitespace-nowrap px-4 py-2 text-gray-700"><span
+                        <td class="whitespace-nowrap px-4 py-2 text-gray-700" v-if="isAdmin == 1"><span
                                 class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
-                                <button class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+                                <button  class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
                                     title="Edit" @click="updateGroup(group.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
@@ -85,7 +85,7 @@
                                 </svg>
                             </button>
 
-                            <form  @submit.prevent="AddGroup()"
+                            <form @submit.prevent="AddGroup()"
                                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                                 <p class="text-center text-lg font-medium">Ajouter une zone</p>
 
@@ -226,6 +226,7 @@
 
 <script>
 import groupService from "@/source/Group.js"
+import { AuthStore } from "@/store/index.js"
 
 export default {
     created() {
@@ -239,7 +240,9 @@ export default {
             edit: false,
             add: false,
             deleteG: false,
-            idGroup: null
+            idGroup: null,
+            isAdmin: 0,
+            store: AuthStore(),
 
         }
 
@@ -249,6 +252,9 @@ export default {
     },
 
     methods: {
+        getAdmin() {
+            this.isAdmin = this.store.getuser['isAdmin'];
+        },
         getGroups() {
             groupService.getGroups().then((res) => {
                 this.groups = res.data.data;

@@ -42,7 +42,7 @@ route::put('/updateGroup/{id}',[GroupController::class,'update']);
 route::get('/posts',[JobPositionController::class,'index']);
 route::get('/PostsDetails/{id}',[JobPositionController::class,'show']);
 route::post('/addPost',[JobPositionController::class,'store']);
-route::delete('/deletePost',[JobPositionController::class,'destroy']);
+route::delete('/deletePost/{id}',[JobPositionController::class,'destroy']);
 route::put('/updatePost/{id}',[JobPositionController::class,'update']);
 
 // route::apiResource('/JobPosts',JobPositionController::class);

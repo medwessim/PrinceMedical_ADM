@@ -103,6 +103,7 @@
 
 import UserService from "../../source/Users.js"
 import chatService from '@/source/chat.js'
+import { AuthStore } from "@/store/index.js"
 import moment from 'moment'
 
 export default {
@@ -120,17 +121,19 @@ export default {
 
     },
     async created() {
-
-        this.getMessages();
-        this.getUserById(this.recu_id)
-        this.moment = moment;
-
+        if (this.recu_id !== null && this.recu_id !== undefined) {
+            this.getMessages();
+            this.getUserById(this.recu_id);
+            this.moment = moment;
+        }
     },
+
     components: {
 
     },
     data() {
         return {
+            store: AuthStore(),
             user: [],
             messages: [],
             chat: [],

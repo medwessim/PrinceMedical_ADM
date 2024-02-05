@@ -231,6 +231,7 @@ import { AuthStore } from "@/store/index.js"
 export default {
     created() {
         this.getGroups();
+        this.getAdmin();
     },
 
     data() {

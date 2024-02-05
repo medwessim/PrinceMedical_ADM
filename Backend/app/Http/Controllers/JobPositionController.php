@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobPosition;
 use App\Http\Requests\StoreJobPositionRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateJobPositionRequest;
 
 class JobPositionController extends Controller
@@ -28,9 +29,12 @@ class JobPositionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobPositionRequest $request)
+    public function store(Request $request)
     {
-        //
+        JobPosition::create([
+            "job_name" => $request->job_name,
+        ]);
+        return response()->json(["message" => "Post created successfull"], 201);
     }
 
     /**
@@ -61,8 +65,17 @@ class JobPositionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobPosition $jobPosition)
+    public function destroy($id)
     {
-        //
+        $posts= JobPosition::find($id);
+        $message ="";
+        if($posts==null){
+            $message="group with $id not found";
+            return response()->json(["message"=>$message],404);
+        }
+        else{
+            $posts->delete();
+            return response()->json(["message"=>"post deleted"],200);
+        }
     }
 }

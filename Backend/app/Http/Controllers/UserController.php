@@ -97,7 +97,6 @@ class UserController extends Controller
                     "name" => $request->name,
                     "lastName" => $request->lastName,
                     "userName" => $request->userName,
-                    "password" => $request->password,
                     "num_tlf" => $request->num_tlf,
                     "group_id" => $request->group_id,
                     "jobposition_id" => $request->jobposition_id,
@@ -108,8 +107,7 @@ class UserController extends Controller
                 $user->update([
                     "name" => $request->name,
                     "lastName" => $request->lastName,
-                    "userName" => $request->userName,
-                    "password" => $request->password,
+                    "userName" => $request->userName,                    
                     "num_tlf" => $request->num_tlf,
                     "group_id" => $request->group_id,
                     'status' => 'active',

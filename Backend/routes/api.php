@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DashbordNewController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\auth\LoginUser;
@@ -56,3 +57,10 @@ route::get("/getMessage",[ChatController::class,'getMessages']);
 
 route::get("/getNotif",[NotificationController::class,'getNotif']);
 route::delete("/deleteNotif/{id}",[NotificationController::class,'deleteNotif']);
+
+
+route::get('/news',[DashbordNewController::class,'index']);
+route::get('/newsDetails/{id}',[DashbordNewController::class,'show']);
+route::post('/addNews',[DashbordNewController::class,'store']);
+route::delete('/deleteNew/{id}',[DashbordNewController::class,'destroy']);
+route::put('/updateNew/{id}',[DashbordNewController::class,'update']);

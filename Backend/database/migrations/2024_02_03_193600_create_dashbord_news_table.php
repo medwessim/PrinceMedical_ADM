@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('dashbord_news', function (Blueprint $table) {
             $table->id();
-            $table->text('message');
+            $table->text('title');
+            $table->text('description');
             $table->string('photo')->nullable;
             $table->timestamps();
         });

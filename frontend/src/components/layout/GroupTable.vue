@@ -291,7 +291,9 @@ export default {
 
                 }
             ).then((res) => {
+                this.getGroups();
                 this.zone_name = ""
+                this.add = false;
 
             }).catch((error) => {
                 console.log("error");

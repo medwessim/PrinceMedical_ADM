@@ -1,7 +1,7 @@
 <template>
     <div class="home">
       <navbar msg="Dashboard" add="addUser"></navbar>
-      <dashbord></dashbord>
+      <news></news>
 
     </div>
   </template>
@@ -10,7 +10,9 @@
   // @ is an alias to /src
   
   import navbar from '@/components/layout/navbar.vue'
-  import dashbord from '@/components/dashbord.vue'
+  
+  import news from '@/components/layout/New.vue'
+
 
   
   
@@ -18,7 +20,8 @@
     name: 'Dashboard',
     components: {
       navbar,
-      dashbord
+      
+      news
       
       
     }

@@ -29,19 +29,23 @@ class DashbordNewController extends Controller
         // $group = new Group();
         // $group->zone_name = $request->zone_name;
         // $group->save();
-        
+        if ($request->avatarupload == 1) {
+            $file_name = time() . '_' . $request->photo->getClientOriginalName();
+            $image = $request->file('photo')->storeAs('images', $file_name, 'public');
+            DashbordNew::create([
+                "title" => $request->title,
+                "description" => $request->description,
+                "photo" => '/storage/' . $image,
 
-        $file_name = time() . '_' . $request->photo->getClientOriginalName();
-        $image = $request->file('photo')->storeAs('images', $file_name, 'public');
-        DashbordNew::create([
-
-            "title" => $request->title,
-            "description" => $request->description,
-           
-            "photo" => '/storage/' . $image,
-            
-        ]);
-        return response()->json(["message" => "Group created successfull"], 201);
+            ]);
+        } else {
+            DashbordNew::create([
+                "title" => $request->title,
+                "description" => $request->description,
+                "photo" => Null,
+            ]);
+        }
+        return response()->json(["message" => "news created successfull"], 201);
     }
 
     /**
@@ -49,8 +53,8 @@ class DashbordNewController extends Controller
      */
     public function show(string $id)
     {
-        $news=DashbordNew::find($id);
-        return response()->json(["data"=>$news],200);
+        $news = DashbordNew::find($id);
+        return response()->json(["data" => $news], 200);
     }
 
     /**
@@ -64,9 +68,26 @@ class DashbordNewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGroupRequest $request, DashbordNew $news)
+    public function update(Request $request, string $id)
     {
-        //
+        $news = DashbordNew::find($id);
+        if ($request->avatarupload == 1) {
+            $file_name = time() . '_' . $request->photo->getClientOriginalName();
+            $image = $request->file('photo')->storeAs('images', $file_name, 'public');
+            $news->update([
+                "title" => $request->title,
+                "description" => $request->description,
+                "photo" => '/storage/' . $image,
+
+            ]);
+        } else {
+            $news->update([
+                "title" => $request->title,
+                "description" => $request->description,
+            ]);
+        }
+        return response()->json(["message" => "news updated successfull"], 201);
+
     }
 
     /**
@@ -74,15 +95,14 @@ class DashbordNewController extends Controller
      */
     public function destroy($id)
     {
-        $news= DashbordNew::find($id);
-        $message ="";
-        if($news==null){
-            $message="group with $id not found";
-            return response()->json(["message"=>$message],404);
-        }
-        else{
+        $news = DashbordNew::find($id);
+        $message = "";
+        if ($news == null) {
+            $message = "group with $id not found";
+            return response()->json(["message" => $message], 404);
+        } else {
             $news->delete();
-            return response()->json(["message"=>"news deleted"],200);
+            return response()->json(["message" => "news deleted"], 200);
         }
     }
 }

@@ -18,19 +18,33 @@ const ApiClient = axios.create({
         data.append("title", news.title);
         data.append("description", news.description);
         data.append("photo", news.photo);
+        data.append("avatarupload", news.avatarupload);
         const config = {
             Headers:{
               "content-Type" : "multipart/form-data",
             },
           };
       console.log(news);
-        return ApiClient.post("/addNew", data, config);
+        return ApiClient.post("/addNews", data, config);
     },
     getNewById(id){
       return ApiClient.get("/NewsDetails/"+id);
     },
-    UpdateNew(id,news){
-      return ApiClient.put("/updateNew/"+id,news);
+    UpdateNew(news,id){
+      let data= new FormData();
+        data.append("title", news.title);
+        data.append("description", news.description);
+        data.append("photo", news.photo);
+        data.append("avatarupload", news.avatarupload);
+        
+        const config = {
+            Headers:{
+              "content-Type" : "multipart/form-data",
+            },
+          };
+      console.log(news);
+        return ApiClient.post("/updateNew/"+id, data, config);
+      
     },
     
 };

@@ -652,13 +652,21 @@ export default {
         name: this.name,
         lastName: this.lastName,
         userName: this.userName,
-        
+
         num_tlf: this.num_tlf,
         group_id: this.group_id,
         jobposition_id: this.jobposition_id,
         photo: this.photo,
         avatarupload: this.avatarupload
       }, this.id).then((res) => {
+        this.name = "";
+        this.lastName = "";
+        this.userName = "";
+        this.password = "";
+        this.num_tlf = "";
+        this.photo = "";
+        this.group_id = "";
+        this.jobposition_id = "";
         this.getUsers(this.store.getuser['id']);
         this.edit = false;
       })

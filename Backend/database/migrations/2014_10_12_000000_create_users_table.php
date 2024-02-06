@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('userName')->unique();
             $table->string('password');
-            $table->string('photo')->nullable;
+            $table->string('photo')->nullable();
             $table->integer('num_tlf');
             $table->boolean('isAdmin');
             $table->string('status');

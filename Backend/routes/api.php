@@ -63,4 +63,4 @@ route::get('/news',[DashbordNewController::class,'index']);
 route::get('/newsDetails/{id}',[DashbordNewController::class,'show']);
 route::post('/addNews',[DashbordNewController::class,'store']);
 route::delete('/deleteNew/{id}',[DashbordNewController::class,'destroy']);
-route::put('/updateNew/{id}',[DashbordNewController::class,'update']);
+route::post('/updateNew/{id}',[DashbordNewController::class,'update']);

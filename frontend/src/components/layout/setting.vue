@@ -1,7 +1,7 @@
 <template>
     <!-- component -->
     <!-- component -->
-    <div class="bg-gray-200 min-h-screen pt-2 font-mono my-16">
+    <div class="bg-gray-200 min-h-screen ">
         <div class="container mx-auto">
             <div class="inputs w-full max-w-2xl p-6 mx-auto">
                 <h2 class="text-2xl text-gray-900">Account Setting</h2>
@@ -14,13 +14,7 @@
                                 class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                 id='grid-text-1' type='text' placeholder='Enter userName' required>
                         </div>
-                        <div class='w-full md:w-full px-3 mb-6 '>
-                            <label
-                                class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>password</label>
-                            <button
-                                class="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">change
-                                your password</button>
-                        </div>
+
                         <div class='w-full md:w-full px-3 mb-6'>
                             <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>pick your
                                 zone</label>
@@ -58,7 +52,7 @@
                                         name</label>
                                     <input v-model="name"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                        type='text' >
+                                        type='text'>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>last
@@ -72,8 +66,14 @@
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>photo</label>
-                                <div><img class="h-12 w-12 flex-none rounded-full bg-gray-50 mb-2"
+                                <div>
+                                    <img v-if="photo != Null" class="h-12 w-12 flex-none rounded-full bg-gray-50 mb-2"
                                         :src="'http://localhost:8000' + photo" alt="" />
+                                    <div v-if="photo == Null"
+                                        class="relative mb-2 items-center justify-center h-12 w-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                        <span class="font-medium text-gray-600 dark:text-gray-300">{{
+                                            lastName.charAt(0) + "." + name.charAt(0) }}</span>
+                                    </div>
 
                                     <label for="file-upload"
                                         class="border border-gray-400 relative cursor-pointer rounded-md  text-gray-900 px-2 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
@@ -102,6 +102,40 @@
                         </div>
                     </div>
                 </form>
+                <div class='w-full md:w-full px-3 mb-6 '>
+                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>password</label>
+                    <button @click="toggleEditPass" type
+                        class="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">change
+                        your password</button>
+                </div>
+                <div class='w-full md:w-full px-3 mb-6' v-if="editPass == true">
+                    <div class=' px-3 mb-6'>
+                        <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                            for='grid-text-1'>Current Mot de passe</label>
+                        <input
+                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                            id='grid-text-1' type='text' placeholder='Enter current mot de passe' required>
+                    </div>
+                    <div class='w-full md:w-full px-3 mb-6'>
+                        <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                            for='grid-text-1'>Nouvelle Mot de passe</label>
+                        <input
+                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                            id='grid-text-1' type='text' placeholder='Enter nouvelle mot de passe' required>
+                    </div>
+                    <div class='w-full md:w-full px-3 mb-6'>
+                        <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                            for='grid-text-1'>Confirmer Mot de passe</label>
+                        <input
+                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                            id='grid-text-1' type='text' placeholder='Enter confirmer mot de passe' required>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="appearance-none bg-red-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md mr-3"
+                            type="button">save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -138,6 +172,7 @@ export default {
             password: "",
             group_id: "",
             id: "",
+            editPass: false,
         }
 
     },
@@ -187,22 +222,24 @@ export default {
                 jobposition_id: this.jobposition_id,
                 photo: this.photo,
                 avatarupload: this.avatarupload
-            }, this.id).then((res) => {UserService.getUserById(this.store.getuser['id']).then((res) =>{
-                this.store.setUser(res.data.data);
-                
-                
-                
+            }, this.id).then((res) => {
+                UserService.getUserById(this.store.getuser['id']).then((res) => {
+                    this.store.setUser(res.data.data);
+                    
 
-                
-                
+
                 })
+            }).catch((error) => {
+                console.error("Error updating user:", error);
+            });
 
-            })
-            
         },
         saveImage() {
             this.photo = this.$refs.photo.files[0];
             this.avatarupload = 1;
+        },
+        toggleEditPass() {
+            this.editPass = !this.editPass;
         },
     }
 }

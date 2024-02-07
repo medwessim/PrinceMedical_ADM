@@ -24,7 +24,13 @@
     <ul role="list" class="mx-auto max-w-7xl divide-y divide-gray-100">
       <li v-for="user in users" :key="user.id" class="flex justify-between gap-x-6 py-5">
         <div class="flex min-w-0 gap-x-4">
-          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="'http://localhost:8000' + user.photo" alt="" />
+          <img v-if="user.photo != Null" class="h-12 w-12 flex-none rounded-full bg-gray-50"
+            :src="'http://localhost:8000' + user.photo" alt="" />
+          <div v-if="user.photo == Null"
+            class="relative inline-flex items-center justify-center h-12 w-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+            <span class="font-medium text-gray-600 dark:text-gray-300">{{ user.lastName.charAt(0) + "." + user.name.charAt(0) }}</span>
+          </div>
+          
           <div class="min-w-0 flex-auto">
             <button @click="openChat(user.id)">
               <p class="text-sm font-semibold leading-6 text-gray-900">{{ user.name + " " + user.lastName }}</p>
@@ -555,7 +561,8 @@ export default {
           "num_tlf": this.num_tlf,
           "group_id": this.group_id,
           "jobposition_id": this.jobposition_id,
-          "photo": this.photo
+          "photo": this.photo,
+          "avatarupload": this.avatarupload
         }
       ).then((res) => {
         this.name = "";
@@ -566,6 +573,7 @@ export default {
         this.photo = "";
         this.group_id = "";
         this.jobposition_id = "";
+        this.avatarupload = "";
         this.getUsers(this.store.getuser['id']);
         this.add = false;
 
@@ -652,7 +660,6 @@ export default {
         name: this.name,
         lastName: this.lastName,
         userName: this.userName,
-
         num_tlf: this.num_tlf,
         group_id: this.group_id,
         jobposition_id: this.jobposition_id,
@@ -667,6 +674,7 @@ export default {
         this.photo = "";
         this.group_id = "";
         this.jobposition_id = "";
+        this.avatarupload = "";
         this.getUsers(this.store.getuser['id']);
         this.edit = false;
       })

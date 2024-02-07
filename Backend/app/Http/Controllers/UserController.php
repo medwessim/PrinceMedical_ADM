@@ -16,14 +16,13 @@ class UserController extends Controller
         // $users = User::all();
         if (isset($request->search)) {
             $excludedUserIds = [$id];
-            $users = User::whereNotIn('id', $excludedUserIds)->where('userName','like','%'.$request->search.'%')->get();
-        }
-        else{
+            $users = User::whereNotIn('id', $excludedUserIds)->where('userName', 'like', '%' . $request->search . '%')->get();
+        } else {
             $excludedUserIds = [$id];
             $users = User::whereNotIn('id', $excludedUserIds)->get();
-        
+
         }
-        
+
 
         return response()->json(["data" => $users], 200);
 
@@ -42,23 +41,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $file_name = time() . '_' . $request->photo->getClientOriginalName();
-        $image = $request->file('photo')->storeAs('images', $file_name, 'public');
-        User::create([
+        if ($request->avatarupload == 1) {
+            $file_name = time() . '_' . $request->photo->getClientOriginalName();
+            $image = $request->file('photo')->storeAs('images', $file_name, 'public');
+            User::create([
 
-            "name" => $request->name,
-            "lastName" => $request->lastName,
-            "userName" => $request->userName,
-            "password" => bcrypt($request->password),
-            // "photo"=>"abc",
-            "photo" => '/storage/' . $image,
-            "num_tlf" => $request->num_tlf,
-            "isAdmin" => 0,
-            'status' => 'active',
-            "group_id" => $request->group_id,
-            "jobposition_id" => $request->jobposition_id
+                "name" => $request->name,
+                "lastName" => $request->lastName,
+                "userName" => $request->userName,
+                "password" => bcrypt($request->password),
+                // "photo"=>"abc",
+                "photo" => '/storage/' . $image,
+                "num_tlf" => $request->num_tlf,
+                "isAdmin" => 0,
+                'status' => 'active',
+                "group_id" => $request->group_id,
+                "jobposition_id" => $request->jobposition_id
 
-        ]);
+            ]);
+        } else {
+            User::create([
+
+                "name" => $request->name,
+                "lastName" => $request->lastName,
+                "userName" => $request->userName,
+                "password" => bcrypt($request->password),
+                "photo" => Null,
+                "num_tlf" => $request->num_tlf,
+                "isAdmin" => 0,
+                'status' => 'active',
+                "group_id" => $request->group_id,
+                "jobposition_id" => $request->jobposition_id
+            ]);
+
+        }
         return response()->json(["message" => "added successfully"], 201);
     }
 
@@ -107,7 +123,7 @@ class UserController extends Controller
                 $user->update([
                     "name" => $request->name,
                     "lastName" => $request->lastName,
-                    "userName" => $request->userName,                    
+                    "userName" => $request->userName,
                     "num_tlf" => $request->num_tlf,
                     "group_id" => $request->group_id,
                     'status' => 'active',

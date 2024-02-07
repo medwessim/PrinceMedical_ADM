@@ -26,7 +26,7 @@
             <div v-if="notifs.length == 0" role="alert" class=" rounded border-s-4 border-green-500 bg-green-50 p-4">
                 <strong class="block font-medium text-green-800"> Pas de notification </strong>
 
-                
+
             </div>
             <div class=" p-2" v-for="notif in notifs.slice().reverse()" :key="notif.id">
                 <div v-for="user in users" :key="user.id">
@@ -49,8 +49,12 @@
                         </div>
                         <div class="flex items-center">
                             <div class="relative inline-block shrink-0">
-                                <img class="w-12 h-12 rounded-full" alt="Jese Leos image"
-                                    :src="'http://localhost:8000' + user.photo" />
+                                <img v-if="user && user.photo != null" class="h-12 w-12 flex-none rounded-full bg-gray-50"
+                                    :src="'http://localhost:8000' + user.photo" alt="" />
+                                <div v-else
+                                    class="relative inline-flex items-center justify-center h-12 w-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                    <span class="font-medium text-gray-600 dark:text-gray-300">{{ user.lastName.charAt(0) + " " + user.name.charAt(0) }}</span>
+                                </div>
                                 <span
                                     class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
                                     <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"

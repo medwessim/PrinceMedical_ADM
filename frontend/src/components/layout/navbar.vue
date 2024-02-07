@@ -27,7 +27,12 @@
                     class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-1.5" />
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="'http://localhost:8000' + store?.getuser['photo']" alt="" />
+                    <img v-if="store.getuser['photo'] != Null" class="h-8 w-8 rounded-full" :src="'http://localhost:8000' + store?.getuser['photo']" alt="" />
+                    <div v-if="store.getuser['photo'] == Null"
+                      class="relative inline-flex items-center justify-center h-8 w-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                      <span class="font-medium text-gray-600 dark:text-gray-300">{{ store.getuser['lastName'].charAt(0) + "." +
+                        store.getuser['name'].charAt(0) }}</span>
+                    </div>
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100"
@@ -44,8 +49,8 @@
                 </transition>
               </Menu>
               <!-- notification dropdown -->
-              
-              <Notif :recu_id="store.getuser !== null ? store.getuser['id'] : null"  />
+
+              <Notif :recu_id="store.getuser !== null ? store.getuser['id'] : null" />
             </div>
           </div>
           <div class="-mr-2 flex md:hidden">
@@ -72,7 +77,7 @@
             <div class="flex-shrink-0">
               <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
             </div>
-            
+
             <button v-if="store.getuser !== null" type="button"
               class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="absolute -inset-1.5" />
@@ -139,7 +144,7 @@ const navigation = [
 const userNavigation = [
   { name: store.getuser['name'] + " " + store.getuser['lastName'], href: '#' },
   { name: 'paramètres', href: '/Settings', },
-  { name: 'se déconnecter',  click: Logout },
+  { name: 'se déconnecter', click: Logout },
 ]
 </script>
 

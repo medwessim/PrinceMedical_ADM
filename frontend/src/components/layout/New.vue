@@ -35,15 +35,13 @@
 
             <!-- Section: Design Block -->
             <section class="mb-32 text-center">
-                <h2 class="mb-12 pb-4 text-center text-3xl font-bold">
-                    Latest articles
-                </h2>
+                
 
                 <div class="grid gap-6 lg:grid-cols-3 xl:gap-x-12">
                     <div class="mb-6 lg:mb-0" v-for="New in news" :key="New.id">
                         <div
                             class="relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-                            <div class="flex" v-if="New.photo!=Null">
+                            <div class="flex" v-if="New.photo != Null">
                                 <div class="relative mx-4 -mt-4 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20"
                                     data-te-ripple-init data-te-ripple-color="light">
                                     <img :src="'http://localhost:8000' + New.photo" class="w-full" />
@@ -64,7 +62,7 @@
                                     {{ New.description }}
                                 </p>
                                 <div class="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
-                                    <button v-if="isAdmin == 1"  @click="updateNewsPage(New)"
+                                    <button v-if="isAdmin == 1" @click="updateNewsPage(New)"
                                         class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
@@ -104,7 +102,7 @@
                             class=" flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
                             <div
                                 class=" relative flex items-center overflow-hidden  bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                                <button type="button" @click="add = false"
+                                <button type="button" @click="close()"
                                     class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8">
                                     <span class="sr-only">Close</span>
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -128,13 +126,18 @@
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="relative mb-3" data-te-input-wrapper-init>
-                                        <textarea v-model="description"
-                                            class="border border-gray-200 peer block min-h-[auto] w-full rounded  bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                                            id="exampleFormControlTextarea1" rows="3" placeholder="Your message"></textarea>
-                                        <label for="exampleFormControlTextarea1"
-                                            class="pointer-events-none absolute bg-white left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6]text-xs text-gray-700  transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Example
-                                            description de nouvelle</label>
+                                    <div>
+                                        <label for="description"
+                                            class="relative block rounded-md border border-gray-200 shadow-sm">
+                                            <textarea  type="text" v-model="description"
+                                                class=" w-[500px] peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                                placeholder="description" ></textarea >
+
+                                            <span
+                                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                                description de nouvelle
+                                            </span>
+                                        </label>
                                     </div>
                                     <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
                                     <div class="mb-3">
@@ -166,7 +169,7 @@
                             class=" flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
                             <div
                                 class=" relative flex items-center overflow-hidden  bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                                <button type="button" @click="edit = false"
+                                <button type="button" @click="close()"
                                     class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8">
                                     <span class="sr-only">Close</span>
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -178,11 +181,11 @@
                                     class="w-200 mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                                     <p class="text-center text-lg font-medium">Ajouter une nouvelle</p>
                                     <div>
-                                        <label for="Username"
+                                        <label for="titre"
                                             class="relative block rounded-md border border-gray-200 shadow-sm">
                                             <input type="text" v-model="title"
                                                 class=" w-[500px] peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
-                                                placeholder="Username" />
+                                                placeholder="titre" />
 
                                             <span
                                                 class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
@@ -190,14 +193,20 @@
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="relative mb-3" data-te-input-wrapper-init>
-                                        <textarea v-model="description"
-                                            class="border border-gray-200 peer block min-h-[auto] w-full rounded  bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                                            id="exampleFormControlTextarea1" rows="3" placeholder="Your message"></textarea>
-                                        <label for="exampleFormControlTextarea1"
-                                            class="pointer-events-none absolute bg-white left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6]text-xs text-gray-700  transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Example
-                                            description de nouvelle</label>
+                                    <div>
+                                        <label for="description"
+                                            class="relative block rounded-md border border-gray-200 shadow-sm">
+                                            <textarea  type="text" v-model="description"
+                                                class=" w-[500px] peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-4 pe-12"
+                                                placeholder="description" ></textarea >
+
+                                            <span
+                                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                                description de nouvelle
+                                            </span>
+                                        </label>
                                     </div>
+                                    
                                     <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
                                     <div class="mb-3">
                                         <label for="formFile"
@@ -229,7 +238,7 @@
                             <div class="relative flex items-center overflow-hidden  red-shadow">
                                 <button type="button"
                                     class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                                    @click="this.deleteN = false">
+                                    @click="close()">
                                     <span class="sr-only">Close</span>
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" aria-hidden="true">
@@ -292,7 +301,7 @@ export default {
             idNew: "",
             isAdmin: 0,
             id: "",
-            avatarupload:"",
+            avatarupload: "",
         }
     },
     methods: {
@@ -320,13 +329,13 @@ export default {
                 "title": this.title,
                 "description": this.description,
                 "photo": this.photo,
-                "avatarupload":this.avatarupload,
+                "avatarupload": this.avatarupload,
 
             }).then((res) => {
                 this.photo = "";
                 this.description = "";
                 this.title = "";
-                this.avatarupload= "";
+                this.avatarupload = "";
                 this.getNews();
                 this.add = false;
 
@@ -344,23 +353,33 @@ export default {
             this.edit = true
 
         },
-        updateNew(){
+        updateNew() {
             newService.UpdateNew({
                 "title": this.title,
                 "description": this.description,
                 "photo": this.photo,
-                "avatarupload":this.avatarupload,
+                "avatarupload": this.avatarupload,
 
             }, this.id).then((res) => {
-                
+
                 this.photo = "";
                 this.description = "";
                 this.title = "";
-                this.avatarupload= "";
+                this.avatarupload = "";
                 this.getNews();
                 this.edit = false;
 
             })
+        },
+        close() {
+            this.photo = "";
+            this.description = "";
+            this.title = "";
+            this.avatarupload = "";
+            this.add = false;
+            this.deleteN = false;
+            this.edit = false;
+
         }
 
 
@@ -371,3 +390,13 @@ export default {
 
 
 </script>
+<style>
+.red-shadow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 10px 10px rgba(255, 0, 0, 0.5);
+  /* Red shadow with 50% opacity */
+}
+</style>

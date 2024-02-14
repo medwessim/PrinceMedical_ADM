@@ -9,7 +9,7 @@
                     class="relative inline-flex items-center justify-center h-12 w-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                     <span class="font-medium text-gray-600 dark:text-gray-300">{{ user && user.lastName ? user.lastName.charAt(0) : '' }}.{{ user && user.name ? user.name.charAt(0) : '' }}</span>
                 </div>
-                <a href="/new-thing" target="_blank" rel="noreferrer" class="text-sm font-medium hover:opacity-75 pl-4">
+                <a  target="_blank" rel="noreferrer" class="text-sm font-medium hover:opacity-75 pl-4">
                     {{ user.name + " " + user.lastName }} 👋
                 </a>
 

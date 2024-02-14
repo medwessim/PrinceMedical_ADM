@@ -125,7 +125,7 @@
                             <input v-model="password"
                                 class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                 :class="{ 'border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500': success == 1, 'border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': success == 0 }"
-                                id='grid-text-1' type='password' placeholder='Enter current mot de passe' required>
+                                id='grid-text-1' type='password' placeholder='Enter mot de passe actuel' required>
                             <p v-if="success == 0" class="mt-2 text-sm text-red-600 dark:text-red-500"> Mot de passe
                                 incorrect.</p>
                             <p v-if="success == 1" class="mt-2 text-sm text-green-600 dark:text-green-500"> Mot de passe

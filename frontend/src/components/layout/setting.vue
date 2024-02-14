@@ -5,6 +5,12 @@
         <div class="container mx-auto">
             <div class="inputs w-full max-w-2xl p-6 mx-auto">
                 <h2 class="text-2xl text-gray-900">Paramètre du compte</h2>
+                <div v-if="success == 2"
+                    class="mt-6 p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    <span class="font-medium">modifier avec Succer!</span>
+                    Modifiez quelques éléments et réessayez de soumettre.
+                </div>
                 <form class="mt-6 border-t border-gray-400 pt-4" @submit.prevent="updateUser()">
                     <div class='flex flex-wrap -mx-3 mb-6'>
                         <div class='w-full md:w-full px-3 mb-6'>
@@ -16,8 +22,9 @@
                         </div>
 
                         <div class='w-full md:w-full px-3 mb-6'>
-                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>selecter service 
-                                </label>
+                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>selecter
+                                service
+                            </label>
                             <div class="flex-shrink w-full inline-block relative">
                                 <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                                     class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
@@ -30,8 +37,8 @@
                             </div>
                         </div>
                         <div class='w-full md:w-full px-3 mb-6'>
-                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>selecter post 
-                                </label>
+                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>selecter post
+                            </label>
                             <div class="flex-shrink w-full inline-block relative">
                                 <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                                     class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
@@ -87,7 +94,7 @@
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                                    Numero de telephone 
+                                    Numero de telephone
                                 </label>
                                 <input v-model="num_tlf"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
@@ -113,16 +120,15 @@
                         <div class=' px-3 mb-6'>
 
                             <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 '
-                                :class="{ 'text-green-700 dark:text-green-500': success == true, 'text-red-700 dark:text-red-500': success == false }"
+                                :class="{ 'text-green-700 dark:text-green-500': success == 1, 'text-red-700 dark:text-red-500': success == 0 }"
                                 for='grid-text-1'>Mot de passe actuel</label>
                             <input v-model="password"
                                 class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                :class="{ 'border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500': success == true, 'border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': success == false }"
+                                :class="{ 'border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500': success == 1, 'border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': success == 0 }"
                                 id='grid-text-1' type='password' placeholder='Enter current mot de passe' required>
-                            <p v-if="success == false" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
-                                    class="font-medium">Oh,
-                                    snapp!</span> Mot de passe incorrect.</p>
-                            <p v-if="success == true" class="mt-2 text-sm text-green-600 dark:text-green-500"> Mot de passe
+                            <p v-if="success == 0" class="mt-2 text-sm text-red-600 dark:text-red-500"> Mot de passe
+                                incorrect.</p>
+                            <p v-if="success == 1" class="mt-2 text-sm text-green-600 dark:text-green-500"> Mot de passe
                                 modifier avec succer.</p>
 
                         </div>
@@ -141,9 +147,8 @@
                                 class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                 :class="{ 'border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500': passwordsMatch == true, 'border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': passwordsMatch == false }"
                                 id='grid-text-2' type='password' placeholder='Enter confirmer mot de passe' required>
-                            <p v-if="passwordsMatch == false" class="mt-2 text-sm text-red-600 dark:text-red-500"><span
-                                    class="font-medium">Oh,
-                                    snapp!</span> Mot de passe incorrect.</p>
+                            <p v-if="passwordsMatch == false" class="mt-2 text-sm text-red-600 dark:text-red-500"> Mot de
+                                passe incorrect.</p>
 
 
                         </div>
@@ -253,8 +258,10 @@ export default {
                 photo: this.photo,
                 avatarupload: this.avatarupload
             }, this.id).then((res) => {
+                this.success = res.data.success;
                 UserService.getUserById(this.store.getuser['id']).then((res) => {
                     this.store.setUser(res.data.data);
+
 
 
 
@@ -276,12 +283,12 @@ export default {
     computed: {
         passwordsMatch() {
             console.log(this.confirmPassword);
-            if(this.confirmPassword!=''){
+            if (this.confirmPassword != '') {
                 return this.newPassword === this.confirmPassword;
-            }else{
-                this.confirmPassword='';
+            } else {
+                this.confirmPassword = '';
             }
-            
+
         }
     }
 }

@@ -132,7 +132,7 @@ class UserController extends Controller
                 ]);
 
             }
-            return response()->json(['data' => $user], 200);
+            return response()->json(['data' => $user,"success" => '2'], 200);
         } else {
             return response()->json(['data' => "Not Found"], 200);
         }
@@ -145,10 +145,10 @@ class UserController extends Controller
             $user->update([
                 "password" => bcrypt($request->newPassword)
             ]);
-            return response()->json(['data' => $user,"success" => true, "message" => "User chaged with success",], 200);
+            return response()->json(['data' => $user,"success" => '1', "message" => "User chaged with success",], 200);
         } else {
 
-            return response()->json(["message" => "not equal", "success" => false], 201);
+            return response()->json(["message" => "not equal", "success" => '0'], 201);
 
         }
 

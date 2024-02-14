@@ -4,9 +4,6 @@
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
       <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
-  
-      
-  
       <form @submit.prevent="SignIn()"  class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Sign in to your account</p>
   
@@ -112,18 +109,25 @@ export default {
     return{
       password:'',
       userName:'',
+      status:'',
     }
   },
   methods: {
       SignIn() {
         
-        authService.signInUser(this.userName, this.password).then(() => {
-          this.$router.push({name:"dashbord"});
-          // if (this.store.getisadmin == 1) {
+        authService.signInUser(this.userName, this.password).then((res) => {
+          if(res){
+            this.$router.push({name:"dashbord"});
             
-          // } else {
-          //   this.$router.push('/');
-          // }
+          }else{
+            
+            console.log("aa");
+          }
+        // authService.signInUser(this.userName, this.password).then(() => {
+        //   this.$router.push({name:"dashbord"});
+          
+          
+          
         }).catch((error) => {
           console.log(error);
         })

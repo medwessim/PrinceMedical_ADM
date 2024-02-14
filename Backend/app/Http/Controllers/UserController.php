@@ -137,18 +137,18 @@ class UserController extends Controller
             return response()->json(['data' => "Not Found"], 200);
         }
     }
-    public function changePassWord(string $password, string $newPassword, Request $request)
+    public function changePassWord(Request $request)
     {
-        $user = User::Find($request->user()->id);
-        $check = Hash::check($password, $user->password);
+        $user = User::Find($request->id);
+        $check = Hash::check($request->password, $user->password);
         if ($check) {
             $user->update([
-                "password" => bcrypt($newPassword)
+                "password" => bcrypt($request->newPassword)
             ]);
-            return response()->json(['data' => $user, "message" => "User chaged with success"], 200);
+            return response()->json(['data' => $user,"success" => true, "message" => "User chaged with success",], 200);
         } else {
 
-            return response()->json(["data" => "not equal", "success" => false], 201);
+            return response()->json(["message" => "not equal", "success" => false], 201);
 
         }
 

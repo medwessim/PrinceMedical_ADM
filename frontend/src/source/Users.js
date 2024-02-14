@@ -55,6 +55,14 @@ const ApiClient = axios.create({
         },
       };
       return ApiClient.post("/updateUser/"+id,data,config);
-    }
+    },
+    updatePassword(id , password, newPassword) {
+      return ApiClient.post("/updatePassword", {
+          password: password,
+          newPassword: newPassword,
+          id: id
+      });
+  }
+  
     
 };

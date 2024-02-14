@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -136,6 +137,24 @@ class UserController extends Controller
             return response()->json(['data' => "Not Found"], 200);
         }
     }
+    public function changePassWord(string $password, string $newPassword, Request $request)
+    {
+        $user = User::Find($request->user()->id);
+        $check = Hash::check($password, $user->password);
+        if ($check) {
+            $user->update([
+                "password" => bcrypt($newPassword)
+            ]);
+            return response()->json(['data' => $user, "message" => "User chaged with success"], 200);
+        } else {
+
+            return response()->json(["data" => "not equal", "success" => false], 201);
+
+        }
+
+
+    }
+
 
 
 

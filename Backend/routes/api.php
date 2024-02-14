@@ -29,6 +29,8 @@ route::get('/usersDetails/{id}',[UserController::class,'show']);
 route::post('/addUser',[UserController::class,'store']);
 route::delete('/deleteUser/{id}',[UserController::class,'destroy']);
 route::post('/updateUser/{id}',[UserController::class,'update']);
+route::post('/updatePassWord/{id}',[UserController::class,'changePassWord']);
+
 
 // route::apiResource('/UserPosts',UserController::class);
 

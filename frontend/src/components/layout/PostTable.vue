@@ -29,7 +29,7 @@
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">postes</th>
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">créé à la</th>
                         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">mise à jour à</th>
-                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">opération</th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900" v-if="isAdmin == 1">opération</th>
                     </tr>
                 </thead>
 
@@ -38,8 +38,8 @@
                         <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ post.id }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.job_name }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.created_at }}</td>
-                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.updated_at }}</td>
-                        <td class="whitespace-nowrap px-4 py-2 text-gray-700"><span
+                        <td class="whitespace-nowrap px-4 py-2 text-gray-700" >{{ post.updated_at }}</td>
+                        <td class="whitespace-nowrap px-4 py-2 text-gray-700" v-if="isAdmin == 1"><span
                                 class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
                                 <button @click="updatePost(post.id)" class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
                                     title="Edit Product">

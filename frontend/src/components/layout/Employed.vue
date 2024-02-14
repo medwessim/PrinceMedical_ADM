@@ -180,7 +180,7 @@
                   <div>
                     <select name="HeadlineAct" id="HeadlineAct" v-model="jobposition_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
-                      <option value="">select jobposition</option>
+                      <option value="">selecter poste</option>
                       <option v-for="post in posts" :key="post.id" :value="post.id">{{ post.job_name }}</option>
 
                     </select>
@@ -206,7 +206,7 @@
 
                     <select name="HeadlineAct" id="HeadlineAct" v-model="group_id"
                       class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm p-2">
-                      <option value="">selecter une zone</option>
+                      <option value="">selecter une service</option>
                       <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.zone_name }}</option>
 
                     </select>
@@ -260,8 +260,8 @@
                   <h2 class="text-2xl font-bold text-gray-900 sm:pr-12 ">{{ user.name + " " + user.lastName }}</h2>
                   <div class="py-8  flow-root rounded-lg border border-gray-100 shadow-sm ">
                     <dl class="-my-3 divide-y divide-gray-100 text-sm">
-                      <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-medium text-gray-900">ID utilisateur</dt>
+                      <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4" v-if="isAdmin == 1">
+                        <dt class="font-medium text-gray-900" >ID utilisateur</dt>
                         <dd class="text-gray-700 sm:col-span-2">{{ user.id }}</dd>
                       </div>
                       <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -269,7 +269,7 @@
                         <dd class="text-gray-700 sm:col-span-2">{{ user.name + " " + user.lastName }}</dd>
                       </div>
 
-                      <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                      <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4" v-if="isAdmin == 1">
                         <dt class="font-medium text-gray-900">identifiant</dt>
                         <dd class="text-gray-700 sm:col-span-2 ">{{ user.userName }}</dd>
                       </div>

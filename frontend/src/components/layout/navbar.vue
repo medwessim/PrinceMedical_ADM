@@ -133,9 +133,9 @@ const getUser = () => {
 }
 
 const navigation = [
-  { name: 'Accueil', href: '/Dashbord', current: toggleNavigation('Dashboard') },
+  { name: 'Actualité', href: '/Dashbord', current: toggleNavigation('Dashboard') },
   { name: 'Employé', href: '/employed', current: toggleNavigation('Employed') },
-  { name: 'Zone', href: '/Group', current: toggleNavigation('Group') },
+  { name: 'Service', href: '/Group', current: toggleNavigation('Group') },
   { name: 'Poste', href: '/Post', current: toggleNavigation('Post') },
 
 ]

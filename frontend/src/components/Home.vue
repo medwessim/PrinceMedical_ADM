@@ -5,7 +5,7 @@
       <header class="absolute inset-x-0 top-0 z-50">
         <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div class="flex lg:flex-1">
-            
+
           </div>
           <div class="flex lg:hidden">
             <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -66,15 +66,17 @@
             </div>
           </div>
           <div class="text-center">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Data to enrich your online business
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Endoscopie digestive, Gynécologie et
+              PMA
             </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-              qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Fabricant français de dispositifs médicaux : cathéters à
+              ballonnets, aiguilles à injection, pinces gynécologiques, spéculums, cathéters de transfert d’embryons,
+              aiguille de ponction d’ovocytes…</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
-              
 
-              <router-link to="SignIn" class="group flex items-center justify-between gap-4 rounded-lg border border-indigo-600 bg-indigo-600 px-5 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring"
+
+              <router-link to="SignIn"
+                class="group flex items-center justify-between gap-4 rounded-lg border border-indigo-600 bg-indigo-600 px-5 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring"
                 href="/download">
                 <span
                   class="font-medium text-white transition-colors group-hover:text-indigo-600 group-active:text-indigo-500">
@@ -90,9 +92,10 @@
                 </span>
               </router-link>
 
-              
 
-              <router-link to="/Dashbord" class="group flex items-center justify-between gap-4 rounded-lg border border-current px-5 py-3 text-indigo-600 transition-colors hover:bg-indigo-600 focus:outline-none focus:ring active:bg-indigo-500"
+
+              <router-link to="/Dashbord"
+                class="group flex items-center justify-between gap-4 rounded-lg border border-current px-5 py-3 text-indigo-600 transition-colors hover:bg-indigo-600 focus:outline-none focus:ring active:bg-indigo-500"
                 href="/download">
                 <span class="font-medium transition-colors group-hover:text-white"> Find out more </span>
 
@@ -128,12 +131,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 export default {
   data() {
     return {
-      navigation: [
-        { name: 'Product', href: '#' },
-        { name: 'Features', href: '#' },
-        { name: 'Marketplace', href: '#' },
-        { name: 'Company', href: '#' },
-      ],
+
       mobileMenuOpen: ref(false),
     }
   },

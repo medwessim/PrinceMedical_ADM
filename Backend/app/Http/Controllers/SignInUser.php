@@ -21,7 +21,7 @@ class SignInUser extends Controller
         
         return response()->json(['data' => $response], 200);
     } else {
-        return response()->json(['data' => "Utilisateur non trouvé", 'status' => "user"], 401);
+        return response()->json(['data' => "Utilisateur non trouve"], 401);
     }
 }
 

@@ -12,14 +12,15 @@ const ApiClient = axios.create({
 export default{
 
     async signInUser(userName,password){
+      
         const store=AuthStore();
         const res=await ApiClient.post('/auth',{userName,password});
+        
         if(res.status==200){
           store.login(res.data.data.token,res.data.data.user,res.data.data.isAdmin);
-          return true;
+          
         }else{
           store.logout();
-          return false;
 
         }
         

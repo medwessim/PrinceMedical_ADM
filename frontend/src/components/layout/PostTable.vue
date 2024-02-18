@@ -5,17 +5,29 @@
 
                 <div class="flex items-center  gap-4">
                     <h1 class="text-3xl font-bold tracking-tight text-gray-900">Poste </h1>
-                    <div class="justify-end">
-                        <label class="sr-only" for="search"> Search </label>
-
-                        <input class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
-                            id="search" type="search" placeholder="Search website..." />
-                    </div>
+                    <form class="justify-end">
+                        <label for="default-search"
+                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                            <input type="search"
+                                class="block w-full p-4 ps-10 pe-32 text-sm  border  rounded-lg     dark:text-white"
+                                v-model="search"  placeholder="Search website..." />
+                            <button type="button"
+                                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                        </div>
+                    </form>
                     <button @click="addPostPage()" v-if="isAdmin == 1"
                         class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
                         Ajouter Nouvelle Poste
                     </button>
-                    
+
 
                 </div>
             </div>
@@ -38,10 +50,11 @@
                         <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ post.id }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.job_name }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.created_at }}</td>
-                        <td class="whitespace-nowrap px-4 py-2 text-gray-700" >{{ post.updated_at }}</td>
+                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ post.updated_at }}</td>
                         <td class="whitespace-nowrap px-4 py-2 text-gray-700" v-if="isAdmin == 1"><span
                                 class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
-                                <button @click="updatePost(post.id)" class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+                                <button @click="updatePost(post.id)"
+                                    class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
                                     title="Edit Product">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
@@ -50,7 +63,8 @@
                                     </svg>
                                 </button>
 
-                                <button @click="deletePage(post.id)" class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+                                <button @click="deletePage(post.id)"
+                                    class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
                                     title="Delete Product">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
@@ -274,7 +288,7 @@ export default {
         deletePage(id) {
             this.deleteG = true;
             this.idPost = id;
-            
+
 
         },
         addPostPage() {
@@ -287,7 +301,7 @@ export default {
             this.deleteG = false;
         },
         AddPost() {
-            
+
             postService.AddPost(
                 {
                     "job_name": this.job_name,
